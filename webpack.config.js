@@ -40,7 +40,10 @@ const config = {
     host: 'localhost',
     port: 3000,
     client: {
-      overlay: true
+      overlay: {
+        errors: true,
+        warnings: false
+      }
     },
     compress: true,
     historyApiFallback: true
@@ -63,7 +66,8 @@ const config = {
     }),
 
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(isProduction ? 'production' : 'development')
+      NODE_ENV: JSON.stringify(isProduction ? 'production' : 'development'),
+      REST_API_URL: JSON.stringify(process.env.REST_API_URL)
     }),
 
     new InterpolateHtmlPlugin(HtmlWebpackPlugin, {
