@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import { TokenRefreshRequest, applyAuthTokenInterceptor, setAuthTokens, clearAuthTokens } from 'axios-jwt'
-import { AuthLoginBodyRequest, AuthLoginResponse, AuthLogoutQueryRequest, GetUserBodyResponse } from './index.types'
+import { HomePageCreation, HomePageMultilingualResponse } from './types/homepage.types'
+import { AuthLoginBodyRequest, AuthLoginResponse, AuthLogoutQueryRequest, GetUserBodyResponse } from './types/profile.types'
 
 const instance = axios.create({
   baseURL: REST_API_URL
@@ -42,6 +43,17 @@ export const auth = {
 
 export const user = {
   get: async (): Promise<AxiosResponse<GetUserBodyResponse>> => {
-    return await instance.get<GetUserBodyResponse, any>(`${REST_API_URL}/api/user`)
+    return await instance.get(`${REST_API_URL}/api/user`)
   }
+}
+
+export const homepage = {
+  getMultilingual: async (): Promise<AxiosResponse<HomePageMultilingualResponse>> =>
+    await instance.get(`${REST_API_URL}/api/homepage/multilingual`),
+
+  post: async (payload: HomePageCreation): Promise<AxiosResponse<{ language: string, message: string }>> =>
+    await instance.post(`${REST_API_URL}/api/homepage/`, payload),
+
+  put: async (payload: HomePageCreation): Promise<AxiosResponse<{ language: string, message: string }>> =>
+    await instance.put(`${REST_API_URL}/api/homepage/`, payload)
 }

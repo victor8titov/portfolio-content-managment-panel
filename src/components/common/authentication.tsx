@@ -25,7 +25,7 @@ const Authentication: FC = (): ReactElement | null => {
 
   useEffect(() => {
     return () => {
-      dispatch(profileActions.resetAuthenticationStatus())
+      dispatch(profileActions.clearProfile())
     }
   }, [dispatch])
 

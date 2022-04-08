@@ -2,7 +2,6 @@ import React, { FC, useEffect } from 'react'
 import { Form, Input, Button, Col, Row } from 'antd'
 import { useSelector, useDispatch } from 'react-redux'
 import { State } from '../../store'
-import { useForm } from 'antd/lib/form/Form'
 import { profileActions } from '../../store/slices/profile'
 import { PayloadAction } from '@reduxjs/toolkit'
 import { useNavigate } from 'react-router-dom'
@@ -11,7 +10,6 @@ export type DispatchWithActionFunction = PayloadAction<unknown, string, { payloa
 
 const Login: FC = () => {
   const navigate = useNavigate()
-  // const [form] = useForm()
   const dispatch = useDispatch()
   const isLoggedIn = useSelector((state: State) => state.profile.isLoggedIn)
 

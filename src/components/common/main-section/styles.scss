@@ -1,0 +1,11 @@
+.main-content {
+  min-height: 280;
+  padding: 24px;
+  margin: 24px 16px;
+
+  &__section {
+    min-height: 360px;
+    padding: 24px;
+    background: #fff;
+  }
+}

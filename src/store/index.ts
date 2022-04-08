@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
-import { ErrorBodyResponse } from '../api/index.types'
+import { ErrorBodyResponse } from '../api/types/error.types'
 import rootReducer from '../store/slices'
 import { ErrorSerializable } from './index.types'
 
@@ -12,6 +12,8 @@ const store = configureStore({
 })
 
 export type State = ReturnType<typeof rootReducer>
+
+export type AppDispatch = typeof store.dispatch;
 
 export function errorSerialization (error: any): ErrorSerializable {
   const value: ErrorSerializable = {

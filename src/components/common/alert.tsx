@@ -1,4 +1,4 @@
-import React, { useEffect, FC } from 'react'
+import { useEffect, FC } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { message as antMessage } from 'antd'
 import { State } from '../../store'

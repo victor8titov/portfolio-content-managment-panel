@@ -2,20 +2,28 @@ import React, { FC } from 'react'
 import { Outlet } from 'react-router-dom'
 import { Layout } from 'antd'
 
-const { Header, Sider, Content, Footer } = Layout
+import Footer from './components/common/footer'
+import Header from './components/common/header'
+import Aside from './components/common/aside'
+import MainSection from './components/common/main-section'
+import './styles.scss'
 
 const App: FC = () => {
-  console.log('- App')
   return (
-    <Layout>
-      <Header style={{ background: 'white' }}>Header</Header>
+    <Layout className='portfolio'>
+      <Aside />
+
       <Layout>
-        <Sider style={{ background: 'white' }}>Sider</Sider>
-        <Content>
+
+        <Header />
+
+        <MainSection>
           <Outlet />
-        </Content>
+        </MainSection>
+
+       <Footer />
+
       </Layout>
-      <Footer>Footer</Footer>
     </Layout>
   )
 }

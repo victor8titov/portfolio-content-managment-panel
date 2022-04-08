@@ -1,4 +1,4 @@
-import { ErrorResponse } from '../api/index.types'
+import { ErrorResponse } from '../api/types/error.types'
 
 export type ErrorInReject = {
   status: number,

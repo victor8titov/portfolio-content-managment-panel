@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { isLoggedIn } from 'axios-jwt'
 import { errorSerialization } from '..'
 import * as restApi from '../../api'
-import { AuthLoginBodyRequest, AuthLogoutQueryRequest } from '../../api/index.types'
+import { AuthLoginBodyRequest, AuthLogoutQueryRequest } from '../../api/types/profile.types'
 import { ErrorSerializable } from '../index.types'
 import { ActionAddMatcher } from './alert'
 
@@ -61,8 +61,10 @@ const profileSlice = createSlice({
   name: 'user',
   initialState: initialProfileState,
   reducers: {
-    resetAuthenticationStatus (state) {
+    clearProfile (state) {
       state.authenticationCheckStatus = initialProfileState.authenticationCheckStatus
+      state.user = initialProfileState.user
+      state.isLoggedIn = initialProfileState.isLoggedIn
     }
   },
   extraReducers: (builder) => {
