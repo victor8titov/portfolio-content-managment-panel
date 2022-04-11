@@ -1,6 +1,8 @@
 import axios, { AxiosResponse } from 'axios'
 import { TokenRefreshRequest, applyAuthTokenInterceptor, setAuthTokens, clearAuthTokens } from 'axios-jwt'
+import { SimpleResponse } from './types/common'
 import { HomePageCreation, HomePageMultilingualResponse } from './types/homepage.types'
+import { ImageView, ListImages } from './types/image.types'
 import { AuthLoginBodyRequest, AuthLoginResponse, AuthLogoutQueryRequest, GetUserBodyResponse } from './types/profile.types'
 
 const instance = axios.create({
@@ -56,4 +58,20 @@ export const homepage = {
 
   put: async (payload: HomePageCreation): Promise<AxiosResponse<{ language: string, message: string }>> =>
     await instance.put(`${REST_API_URL}/api/homepage/`, payload)
+}
+
+export const upload = {
+  image: async (payload: FormData): Promise<AxiosResponse<ImageView>> =>
+    await instance.post(`${REST_API_URL}/api/upload/image`, payload, { headers: { 'Content-Type': 'multipart/form-data' } })
+}
+
+export const image = {
+  getList: async ({ page, pageSize }: { page?: number, pageSize?: number}): Promise<AxiosResponse<ListImages>> =>
+    await instance.get(`${REST_API_URL}/api/images?${page ? 'page=' + page + '&' : ''}${pageSize ? 'pageSize=' + pageSize : ''}`),
+
+  get: async (id: string | number): Promise<AxiosResponse<ImageView>> =>
+    await instance.get(`${REST_API_URL}/api/image/${id}`),
+
+  delete: async (id: string | number): Promise<AxiosResponse<SimpleResponse>> =>
+    await instance.delete(`${REST_API_URL}/api/image/${id}`)
 }

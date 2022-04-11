@@ -6,6 +6,7 @@ import { HomePageActions } from '../../../../store/slices/homepage'
 import { AppDispatch, State } from '../../../../store'
 import { alertActions } from '../../../../store/slices/alert'
 import { HomePageCreation } from '../../../../api/types/homepage.types'
+import { ImageView } from '../../../../api/types/image.types'
 
 type UseFormManager = () => {
   form: FormInstance
@@ -42,13 +43,17 @@ const useFormManager: UseFormManager = () => {
       }
     })
 
+    if (fields.avatars) {
+      prepared.avatars = fields.avatars.map((i: ImageView) => ({ type: 'main', imageId: i.id }))
+    }
+
     return prepared
   }
 
   const onSave = async () => {
     try {
       await form.validateFields()
-      const fields = form.getFieldsValue()
+      const fields = form.getFieldsValue(true)
 
       setLoadingSave(true)
       await dispatch(HomePageActions.updateHomePage(prepareToSend(fields))).unwrap()
@@ -93,6 +98,10 @@ const useFormManager: UseFormManager = () => {
         {
           name: 'description_ru',
           value: state.description?.ru
+        },
+        {
+          name: 'avatars',
+          value: state.avatars?.map(i => i.image)
         }
       ])
     }

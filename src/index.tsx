@@ -8,14 +8,14 @@ import App from './App'
 import store from './store'
 
 import Error404 from './components/pages/404'
-import Homepage from './components/pages/homepage/homepage'
+import Homepage from './components/pages/homepage'
 import Authentication from './components/common/authentication'
 import Login from './components/pages/login'
 import Alert from './components/common/alert'
 import Projects from './components/pages/projects'
 import Skills from './components/pages/skills'
 import TimeStamp from './components/pages/time-stamp'
-import Gallery from './components/pages/Gallery'
+import Gallery from './components/pages/gallery'
 
 const root = createRoot(document.getElementById('root') as Element)
 

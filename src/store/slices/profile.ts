@@ -102,7 +102,6 @@ const profileSlice = createSlice({
             (payload.status === 401 || payload.status === 422)
           ) {
             state.isLoggedIn = initialProfileState.isLoggedIn
-            state.authenticationCheckStatus = initialProfileState.authenticationCheckStatus
           }
         }
       )

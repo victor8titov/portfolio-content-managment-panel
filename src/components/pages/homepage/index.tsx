@@ -1,30 +1,39 @@
 import React, { FC } from 'react'
+import { Button, Col, Row, Spin } from 'antd'
 import Text from 'antd/lib/typography/Text'
 import Title from 'antd/lib/typography/Title'
-import { Button, Col, Row, Spin } from 'antd'
 
 import HomepageForm from './form'
-import './styles.scss'
 import useFormManager from './hooks/form-manager'
+import './styles.scss'
+
+import HomepageFormImage from './form-image'
 
 const Homepage: FC = () => {
   const { form, onSave, loadingPage, loadingSave } = useFormManager()
+
   return (
     <div className="homepage">
       <Title>Home page</Title>
       <Text>Here you can configure content for the main page of the site.</Text>
 
       <Row gutter={15}>
-        <Col xs={{ span: 24 }} md={{ span: 18 }}>
+        <Col xs={{ span: 24 }} md={{ span: 19 }}>
           <Spin tip='Loading...' spinning={loadingPage} >
             <HomepageForm form={form} />
           </Spin>
+        </Col>
+        <Col xs={{ span: 24 }} lg={{ span: 5 }}>
+          <div className='homepage__sidebar'>
+            <Title level={4}>Avatar</Title>
+            <HomepageFormImage form={form} />
+          </div>
+        </Col>
+        <Col span={24}>
           <Button type="primary" onClick={onSave} loading={loadingSave}>Save</Button>
         </Col>
-        <Col xs={{ span: 24 }} md={{ span: 6 }}>
-          <div style={{ backgroundColor: 'gray', width: '100%', height: '500px' }}> this will be avatar block</div>
-        </Col>
       </Row>
+
     </div>
   )
 }

@@ -8,22 +8,14 @@ export type ImageByTemplateView = {
   height?: number | null | string
 }
 
-export type ImageByTemplateCreation = Omit<ImageByTemplateView, 'url'>
-
 export type ImageView = {
   id: string
   description: string
   divisionByTemplates: ImageByTemplateView[]
 }
 
-export type ImageCreation = Omit<ImageView, 'id' | 'divisionByTemplates'> & {
-  divisionByTemplates: ImageByTemplateCreation[]
-}
-
 export type ListImages = {
   pagination?: Pagination
-  currentLanguage?: string
-  supportedLanguages?: string[]
   items?: ImageView[]
 }
 

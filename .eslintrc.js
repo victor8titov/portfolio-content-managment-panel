@@ -13,7 +13,8 @@ module.exports = {
 
   plugins: [
     '@typescript-eslint',
-    'react-hooks'
+    'react-hooks',
+    'only-warn'
   ],
 
   rules: {
