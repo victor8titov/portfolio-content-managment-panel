@@ -1,0 +1,21 @@
+.choose-tag {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: left;
+
+  &__tag,
+  &__tag-add,
+  &__input {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 32px;
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+
+  &__tag-add {
+    cursor: pointer;
+  }
+}

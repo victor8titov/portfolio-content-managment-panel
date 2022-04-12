@@ -2,7 +2,7 @@ import { useForm } from 'antd/lib/form/Form'
 import { useEffect, useState } from 'react'
 import { FormInstance } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
-import { HomePageActions } from '../../../../store/slices/homepage'
+import { homePageActions } from '../../../../store/slices/homepage'
 import { AppDispatch, State } from '../../../../store'
 import { alertActions } from '../../../../store/slices/alert'
 import { HomePageCreation } from '../../../../api/types/homepage.types'
@@ -56,11 +56,11 @@ const useFormManager: UseFormManager = () => {
       const fields = form.getFieldsValue(true)
 
       setLoadingSave(true)
-      await dispatch(HomePageActions.updateHomePage(prepareToSend(fields))).unwrap()
+      await dispatch(homePageActions.updateHomePage(prepareToSend(fields))).unwrap()
       setLoadingSave(false)
 
       setLoadingPage(true)
-      await dispatch(HomePageActions.fetchHomePage()).unwrap()
+      await dispatch(homePageActions.fetchHomePage()).unwrap()
       setLoadingPage(false)
 
       dispatch(alertActions.pushMessage({ message: 'Home page updated', severity: 'success' }))
@@ -111,7 +111,7 @@ const useFormManager: UseFormManager = () => {
     (async () => {
       try {
         setLoadingPage(true)
-        await dispatch(HomePageActions.fetchHomePage()).unwrap()
+        await dispatch(homePageActions.fetchHomePage()).unwrap()
       } catch (e: any) {
         if (e.message) dispatch(alertActions.pushMessage({ message: e.message, severity: 'error' }))
       } finally {
@@ -120,7 +120,7 @@ const useFormManager: UseFormManager = () => {
     })()
 
     return () => {
-      dispatch(HomePageActions.clear())
+      dispatch(homePageActions.clear())
     }
   }, [dispatch])
 

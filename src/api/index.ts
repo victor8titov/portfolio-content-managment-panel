@@ -1,9 +1,11 @@
 import axios, { AxiosResponse } from 'axios'
 import { TokenRefreshRequest, applyAuthTokenInterceptor, setAuthTokens, clearAuthTokens } from 'axios-jwt'
+import { Language } from '../types/common'
 import { SimpleResponse } from './types/common'
 import { HomePageCreation, HomePageMultilingualResponse } from './types/homepage.types'
 import { ImageView, ListImages } from './types/image.types'
 import { AuthLoginBodyRequest, AuthLoginResponse, AuthLogoutQueryRequest, GetUserBodyResponse } from './types/profile.types'
+import { ListSkillsResponse, SkillCreation, SkillViewMultilingual } from './types/skills.types'
 
 const instance = axios.create({
   baseURL: REST_API_URL
@@ -74,4 +76,21 @@ export const image = {
 
   delete: async (id: string | number): Promise<AxiosResponse<SimpleResponse>> =>
     await instance.delete(`${REST_API_URL}/api/image/${id}`)
+}
+
+export const skills = {
+  getSkills: async (language?: Language): Promise<AxiosResponse<ListSkillsResponse>> =>
+    await instance.get(`${REST_API_URL}/api/skills/${language ? '?language=' + language : ''}`),
+
+  getSkillById: async (id: string): Promise<AxiosResponse<SkillViewMultilingual>> =>
+    await instance.get(`${REST_API_URL}/api/skill/${id}/multilingual`),
+
+  create: async (payload: SkillCreation): Promise<AxiosResponse<SimpleResponse>> =>
+    await instance.post(`${REST_API_URL}/api/skills/`, payload),
+
+  update: async (id: string, payload: SkillCreation): Promise<AxiosResponse<SimpleResponse>> =>
+    await instance.put(`${REST_API_URL}/api/skill/${id}`, payload),
+
+  delete: async (id: string): Promise<AxiosResponse<SimpleResponse>> =>
+    await instance.delete(`${REST_API_URL}/api/skill/${id}`)
 }

@@ -53,7 +53,7 @@ const deleteImage = createAsyncThunk(
 )
 
 const gallerySlice = createSlice({
-  name: 'upload',
+  name: 'gallery',
   initialState: initState,
   reducers: {
     clear (state) {

@@ -53,7 +53,7 @@ const homePageSlice = createSlice({
 
 export default homePageSlice.reducer
 
-export const HomePageActions = {
+export const homePageActions = {
   ...homePageSlice.actions,
   fetchHomePage,
   updateHomePage

@@ -16,6 +16,7 @@ import Projects from './components/pages/projects'
 import Skills from './components/pages/skills'
 import TimeStamp from './components/pages/time-stamp'
 import Gallery from './components/pages/gallery'
+import Skill from './components/pages/skill'
 
 const root = createRoot(document.getElementById('root') as Element)
 
@@ -28,6 +29,7 @@ root.render(
                 <Route path='homepage' element={<Homepage />} />
                 <Route path='projects' element={<Projects />} />
                 <Route path='skills' element={<Skills />} />
+                <Route path='skills/:skillId' element={<Skill />} />
                 <Route path='time-stamp' element={<TimeStamp />} />
                 <Route path='gallery' element={<Gallery />} />
               </Route>

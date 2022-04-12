@@ -22,6 +22,8 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'warn',
     'react/prop-types': 'off',
     'no-use-before-define': 'off',
+    // 'camelcase': 'off',
+    // '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-use-before-define': ['error']
   },
   settings: {

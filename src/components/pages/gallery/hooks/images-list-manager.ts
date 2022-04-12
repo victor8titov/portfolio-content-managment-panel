@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { ImageView, ListImages } from '../../../../api/types/image.types'
+import { ImageView } from '../../../../api/types/image.types'
 import { AppDispatch, State } from '../../../../store'
 import { alertActions } from '../../../../store/slices/alert'
 import { galleryActions } from '../../../../store/slices/gallery'
@@ -10,7 +10,6 @@ type UseImageListManager = () => {
   listImages: ImageView[]
   pagination: Pagination
   pullList: () => void
-  // addImage: (image: ImageView) => void
   isLoadingImages: boolean
   onChangePage: (page: number, pageSize: number) => void
 }
@@ -36,7 +35,10 @@ const useImageListManager: UseImageListManager = () => {
 
   useEffect(() => {
     pullList()
-  }, [pullList])
+    return () => {
+      dispatch(galleryActions.clear())
+    }
+  }, [pullList, dispatch])
 
   const onChangePage = useCallback((page: number, pageSize: number) => {
     pullList(page, pageSize)
