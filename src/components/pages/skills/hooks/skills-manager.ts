@@ -6,8 +6,9 @@ import { AppDispatch, State } from '../../../../store'
 import { alertActions } from '../../../../store/slices/alert'
 import { SkillView } from '../../../../api/types/skills.types'
 import { skillsAction } from '../../../../store/slices/skills'
+import { Language } from '../../../../types/common'
 
-type UseSkillsManager = () => {
+type UseSkillsManager = (language?: Language) => {
   onUpdate: (id: string) => void
   onDelete: (id: string) => void
   onAddNew: () => void
@@ -17,7 +18,7 @@ type UseSkillsManager = () => {
   isDeleting: boolean
 }
 
-const useSkillsManager: UseSkillsManager = () => {
+const useSkillsManager: UseSkillsManager = (language = Language.EN) => {
   const dispatch: AppDispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -26,10 +27,10 @@ const useSkillsManager: UseSkillsManager = () => {
   const skills = useSelector((state: State) => state.skills.skills)
   const groups = useSelector((state: State) => state.skills.groups)
 
-  const getSkills = useCallback(async () => {
+  const getSkills = useCallback(async (language) => {
     try {
       setIsLoading(true)
-      await dispatch(skillsAction.fetchSkills())
+      await dispatch(skillsAction.fetchSkills(language))
     } catch (e: any) {
       if (e.message) dispatch(alertActions.pushMessage({ message: e.message, severity: 'error' }))
     } finally {
@@ -38,11 +39,11 @@ const useSkillsManager: UseSkillsManager = () => {
   }, [dispatch])
 
   useEffect(() => {
-    getSkills()
+    getSkills(language)
     return () => {
       dispatch(skillsAction.clear())
     }
-  }, [dispatch, getSkills])
+  }, [dispatch, getSkills, language])
 
   const onUpdate = useCallback((id: string) => {
     navigate(`/skills/${id}`)
@@ -54,14 +55,14 @@ const useSkillsManager: UseSkillsManager = () => {
       await dispatch(skillsAction.deleteSkill(id))
 
       setIsLoading(true)
-      await dispatch(skillsAction.fetchSkills())
+      await dispatch(skillsAction.fetchSkills(language))
     } catch (e: any) {
       if (e.message) dispatch(alertActions.pushMessage({ message: e.message, severity: 'error' }))
     } finally {
       setIsLoading(false)
       setIsDeleting(false)
     }
-  }, [dispatch])
+  }, [dispatch, language])
 
   const onAddNew = useCallback(() => {
     navigate('/skills/new')

@@ -10,6 +10,12 @@
   &__group {
     margin-bottom: 30px;
   }
+
+  &__add-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
 
 .skill-card {

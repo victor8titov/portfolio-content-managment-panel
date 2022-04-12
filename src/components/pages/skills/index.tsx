@@ -1,14 +1,21 @@
-import React, { FC } from 'react'
-import { Affix, Button, Divider, Space, Spin } from 'antd'
+import React, { FC, useCallback, useState } from 'react'
+import { Affix, Button, Divider, Space, Spin, Switch } from 'antd'
 import Text from 'antd/lib/typography/Text'
 import Title from 'antd/lib/typography/Title'
 
 import SkillCard from './skill-card'
 import useSkillsManager from './hooks/skills-manager'
+import { Language } from '../../../types/common'
 import './styles.scss'
 
 const Skills: FC = () => {
-  const { skills, groups, isLoading, onUpdate, onDelete, isDeleting, onAddNew } = useSkillsManager()
+  const [language, setLanguage] = useState<Language>(Language.EN)
+  const { skills, groups, isLoading, onUpdate, onDelete, isDeleting, onAddNew } = useSkillsManager(language)
+
+  const handleChangeLanguage = useCallback((checked: boolean) => {
+    setLanguage(checked ? Language.EN : Language.RU)
+  }, [])
+
   return (
     <div className='skills'>
       <Title>Skills</Title>
@@ -20,6 +27,13 @@ const Skills: FC = () => {
             Add new skill
           </Button>
         </Affix>
+
+        <Switch
+          checkedChildren={'En'}
+          unCheckedChildren={'Ru'}
+          onChange={handleChangeLanguage}
+          defaultChecked
+        />
       </div>
 
       <Spin spinning={isLoading}>

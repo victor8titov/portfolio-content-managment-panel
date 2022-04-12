@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import * as restApi from '../../api'
 import { errorSerialization } from '..'
 import { SkillCreation, SkillView, SkillViewMultilingual } from '../../api/types/skills.types'
+import { Language } from '../../types/common'
 
 export type SkillsState = {
   groups: string[]
@@ -17,9 +18,9 @@ const initialState: SkillsState = {
 
 const fetchSkills = createAsyncThunk(
   'fetchSkills',
-  async (payload, { rejectWithValue }) => {
+  async (language: Language, { rejectWithValue }) => {
     try {
-      const response = await restApi.skills.getSkills()
+      const response = await restApi.skills.getSkills(language)
       return response.data
     } catch (e) {
       return rejectWithValue(errorSerialization(e))

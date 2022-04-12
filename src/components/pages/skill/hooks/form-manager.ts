@@ -6,6 +6,7 @@ import { AppDispatch, State } from '../../../../store'
 import { alertActions } from '../../../../store/slices/alert'
 import { skillsAction } from '../../../../store/slices/skills'
 import { useParams } from 'react-router-dom'
+import { Language } from '../../../../types/common'
 
 type UseFormManager = () => {
   form: FormInstance
@@ -112,7 +113,7 @@ const useFormManager: UseFormManager = () => {
 
   useEffect(() => {
     if (!groups.length) {
-      dispatch(skillsAction.fetchSkills())
+      dispatch(skillsAction.fetchSkills(Language.EN))
     }
     // eslint-disable-next-line
   }, [])
