@@ -6,6 +6,7 @@ import upload from './uploads'
 import gallery from './gallery'
 import skills from './skills'
 import timeStamps from './time-stamps'
+import projects from './projects'
 
 const rootReducer = combineReducers({
   profile,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   homePage,
   skills,
   timeStamps,
+  projects,
   upload,
   gallery
 })

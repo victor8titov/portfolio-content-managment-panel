@@ -1,0 +1,38 @@
+.projects {
+  &__body {
+    margin-top: 20px;
+  }
+
+  &__add-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+  }
+
+  &__group {
+    margin-bottom: 30px;
+  }
+}
+
+.project-card {
+  width: 250px;
+  min-height: 180px;
+
+  &__description {
+    min-height: 25px;
+  }
+
+  &_empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    min-height: 180px;
+    border: 1px solid #f0f0f0;
+
+    &.ant-empty {
+      margin: 0;
+    }
+  }
+}

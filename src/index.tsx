@@ -19,6 +19,7 @@ import Gallery from './components/pages/gallery'
 import Skill from './components/pages/skill'
 import TimeStamps from './components/pages/time-stamps'
 import TimeStamp from './components/pages/time-stamp'
+import Project from './components/pages/project'
 
 const root = createRoot(document.getElementById('root') as Element)
 
@@ -34,6 +35,7 @@ ReactDOM.render(
               <Route element={<App />} >
                 <Route path='homepage' element={<Homepage />} />
                 <Route path='projects' element={<Projects />} />
+                <Route path='projects/:projectId' element={<Project />} />
                 <Route path='skills' element={<Skills />} />
                 <Route path='skills/:skillId' element={<Skill />} />
                 <Route path='time-stamps' element={<TimeStamps />} />

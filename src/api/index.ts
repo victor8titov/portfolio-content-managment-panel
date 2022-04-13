@@ -1,10 +1,11 @@
 import axios, { AxiosResponse } from 'axios'
 import { TokenRefreshRequest, applyAuthTokenInterceptor, setAuthTokens, clearAuthTokens } from 'axios-jwt'
 import { Language } from '../types/common'
-import { SimpleResponse } from './types/common'
+import { QueryParameters, SimpleResponse } from './types/common'
 import { HomePageCreation, HomePageMultilingualResponse } from './types/homepage.types'
 import { ImageView, ListImages } from './types/image.types'
 import { AuthLoginBodyRequest, AuthLoginResponse, AuthLogoutQueryRequest, GetUserBodyResponse } from './types/profile.types'
+import { ProjectCreation, ProjectList, ProjectViewMultilingual } from './types/projects'
 import { ListSkillsResponse, SkillCreation, SkillViewMultilingual } from './types/skills.types'
 import { ListTimeStamps, TimeStampCreation, TimeStampViewMultilingual } from './types/time-stamp.types'
 
@@ -111,4 +112,21 @@ export const timeStamps = {
 
   getByIdMultilingual: async (id: string): Promise<AxiosResponse<TimeStampViewMultilingual>> =>
     await instance.get(`${REST_API_URL}/api/time-stamp/${id}/multilingual`)
+}
+
+export const projects = {
+  getList: async ({ page, pageSize, language }: QueryParameters): Promise<AxiosResponse<ProjectList>> =>
+    await instance.get(`${REST_API_URL}/api/projects?page=${page}&pagesize=${pageSize}&language=${language}`),
+
+  create: async (payload: ProjectCreation): Promise<AxiosResponse<SimpleResponse>> =>
+    await instance.post(`${REST_API_URL}/api/projects/`, payload),
+
+  update: async (id: string, payload: ProjectCreation): Promise<AxiosResponse<SimpleResponse>> =>
+    await instance.put(`${REST_API_URL}/api/project/${id}`, payload),
+
+  delete: async (id: string): Promise<AxiosResponse<SimpleResponse>> =>
+    await instance.delete(`${REST_API_URL}/api/project/${id}`),
+
+  getByIdMultilingual: async (id: string): Promise<AxiosResponse<ProjectViewMultilingual>> =>
+    await instance.get(`${REST_API_URL}/api/project/${id}/multilingual`)
 }
