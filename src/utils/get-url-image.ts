@@ -2,6 +2,7 @@ import { ImageView } from '../api/types/image.types'
 export type ImageTemplate = 'original' | 'mid' | 'small'
 
 export function getUrlImageByTemplate (image: ImageView, template: ImageTemplate): string {
+  if (!Array.isArray(image.divisionByTemplates)) return ''
   const urls = image.divisionByTemplates.map((i) => ({ url: i.url, template: i.template }))
 
   const foundUrl = urls.find(

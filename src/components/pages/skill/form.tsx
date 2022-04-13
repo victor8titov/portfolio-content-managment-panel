@@ -44,11 +44,11 @@ const SkillForm: FC<Props> = (props) => {
       <Divider />
       <Title level={4}>Description</Title>
 
-      <Form.Item name="description_en" label="en" rules={[{ max: 2000, message }]}>
+      <Form.Item name={['description', 'en']} label="en" rules={[{ max: 2000, message }]}>
         <TextArea rows={8} placeholder="Description in English" />
       </Form.Item>
 
-      <Form.Item name="description_ru" label="ru" rules={[{ max: 2000, message }]}>
+      <Form.Item name={['description', 'ru']} label="ru" rules={[{ max: 2000, message }]}>
         <TextArea rows={8} placeholder="Description in Russian" />
       </Form.Item>
 

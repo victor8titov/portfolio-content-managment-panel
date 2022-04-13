@@ -29,17 +29,13 @@ const useFormManager: UseFormManager = () => {
   const onSave = async () => {
     try {
       await form.validateFields()
-      // eslint-disable-next-line
-      const { name, level, group, description_en, description_ru } = form.getFieldsValue()
+      const { name, level, group, description } = form.getFieldsValue()
 
       const payload = {
         name,
         level,
         group: group.shift() || null,
-        description: {
-          en: description_en,
-          ru: description_ru
-        }
+        description
       }
 
       setIsLoading(true)
@@ -94,12 +90,8 @@ const useFormManager: UseFormManager = () => {
           value: skill.group ? [skill.group] : []
         },
         {
-          name: 'description_en',
-          value: skill.description.en || ''
-        },
-        {
-          name: 'description_ru',
-          value: skill.description.ru || ''
+          name: 'description',
+          value: skill.description
         }
       ])
     }

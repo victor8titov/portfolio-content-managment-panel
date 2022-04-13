@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { homePageActions } from '../../../../store/slices/homepage'
 import { AppDispatch, State } from '../../../../store'
 import { alertActions } from '../../../../store/slices/alert'
-import { HomePageCreation } from '../../../../api/types/homepage.types'
 import { ImageView } from '../../../../api/types/image.types'
 
 type UseFormManager = () => {
@@ -23,40 +22,17 @@ const useFormManager: UseFormManager = () => {
   const [loadingSave, setLoadingSave] = useState<boolean>(false)
   const [loadingPage, setLoadingPage] = useState<boolean>(false)
 
-  const prepareToSend = (fields: any): HomePageCreation => {
-    const languages = ['ru', 'en']
-    const fieldsName = ['title', 'subtitle', 'description']
-
-    const prepared: any = {}
-    const _fields = Object.entries(fields)
-
-    fieldsName.forEach((_name) => {
-      const filtered = _fields.filter(i => i[0].indexOf(_name) === 0 && i[1])
-      if (filtered.length) {
-        languages.forEach((_language) => {
-          const _value = filtered.filter(i => i[0].includes(_language)).shift()
-          if (_value) {
-            if (!prepared[_name]) prepared[_name] = {}
-            prepared[_name][_language] = _value[1]
-          }
-        })
-      }
-    })
-
-    if (fields.avatars) {
-      prepared.avatars = fields.avatars.map((i: ImageView) => ({ type: 'main', imageId: i.id }))
-    }
-
-    return prepared
-  }
-
   const onSave = async () => {
     try {
       await form.validateFields()
       const fields = form.getFieldsValue(true)
 
+      if (fields.avatars) {
+        fields.avatars = fields.avatars.map((i: ImageView) => ({ type: 'main', imageId: i.id }))
+      }
+
       setLoadingSave(true)
-      await dispatch(homePageActions.updateHomePage(prepareToSend(fields))).unwrap()
+      await dispatch(homePageActions.updateHomePage(fields)).unwrap()
       setLoadingSave(false)
 
       setLoadingPage(true)
@@ -76,28 +52,16 @@ const useFormManager: UseFormManager = () => {
     if (state) {
       form.setFields([
         {
-          name: 'title_en',
-          value: state.title?.en
+          name: 'title',
+          value: state.title
         },
         {
-          name: 'title_ru',
-          value: state.title?.ru
+          name: 'subtitle',
+          value: state.subtitle
         },
         {
-          name: 'subtitle_en',
-          value: state.subtitle?.en
-        },
-        {
-          name: 'subtitle_ru',
-          value: state.subtitle?.ru
-        },
-        {
-          name: 'description_en',
-          value: state.description?.en
-        },
-        {
-          name: 'description_ru',
-          value: state.description?.ru
+          name: 'description',
+          value: state.description
         },
         {
           name: 'avatars',
