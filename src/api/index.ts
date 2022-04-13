@@ -6,6 +6,7 @@ import { HomePageCreation, HomePageMultilingualResponse } from './types/homepage
 import { ImageView, ListImages } from './types/image.types'
 import { AuthLoginBodyRequest, AuthLoginResponse, AuthLogoutQueryRequest, GetUserBodyResponse } from './types/profile.types'
 import { ListSkillsResponse, SkillCreation, SkillViewMultilingual } from './types/skills.types'
+import { ListTimeStamps, TimeStampCreation, TimeStampViewMultilingual } from './types/time-stamp.types'
 
 const instance = axios.create({
   baseURL: REST_API_URL
@@ -93,4 +94,21 @@ export const skills = {
 
   delete: async (id: string): Promise<AxiosResponse<SimpleResponse>> =>
     await instance.delete(`${REST_API_URL}/api/skill/${id}`)
+}
+
+export const timeStamps = {
+  getAll: async (language: Language): Promise<AxiosResponse<ListTimeStamps>> =>
+    await instance.get(`${REST_API_URL}/api/time-stamps?language=${language}`),
+
+  create: async (payload: TimeStampCreation): Promise<AxiosResponse<SimpleResponse>> =>
+    await instance.post(`${REST_API_URL}/api/time-stamps/`, payload),
+
+  update: async (id: string, payload: TimeStampCreation): Promise<AxiosResponse<SimpleResponse>> =>
+    await instance.put(`${REST_API_URL}/api/time-stamp/${id}`, payload),
+
+  delete: async (id: string): Promise<AxiosResponse<SimpleResponse>> =>
+    await instance.delete(`${REST_API_URL}/api/time-stamp/${id}`),
+
+  getByIdMultilingual: async (id: string): Promise<AxiosResponse<TimeStampViewMultilingual>> =>
+    await instance.get(`${REST_API_URL}/api/time-stamp/${id}/multilingual`)
 }

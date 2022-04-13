@@ -80,6 +80,7 @@
     "antd": "^4.19.5",
     "axios": "^0.26.1",
     "axios-jwt": "^1.7.6",
+    "moment": "^2.29.2",
     "react-redux": "^7.2.8",
     "react-router-dom": "^6.3.0",
     "redux": "^4.1.2"

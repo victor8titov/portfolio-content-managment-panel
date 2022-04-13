@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
@@ -14,13 +15,18 @@ import Login from './components/pages/login'
 import Alert from './components/common/alert'
 import Projects from './components/pages/projects'
 import Skills from './components/pages/skills'
-import TimeStamp from './components/pages/time-stamp'
 import Gallery from './components/pages/gallery'
 import Skill from './components/pages/skill'
+import TimeStamps from './components/pages/time-stamps'
+import TimeStamp from './components/pages/time-stamp'
 
 const root = createRoot(document.getElementById('root') as Element)
 
-root.render(
+// TODO have problem with select from antd. Browser freeze if use antd select
+// it is happening if use react 18
+// root.render(
+
+ReactDOM.render(
     <Provider store={store}>
       <BrowserRouter>
           <Routes>
@@ -30,7 +36,8 @@ root.render(
                 <Route path='projects' element={<Projects />} />
                 <Route path='skills' element={<Skills />} />
                 <Route path='skills/:skillId' element={<Skill />} />
-                <Route path='time-stamp' element={<TimeStamp />} />
+                <Route path='time-stamps' element={<TimeStamps />} />
+                <Route path='time-stamps/:timeStampId' element={<TimeStamp />} />
                 <Route path='gallery' element={<Gallery />} />
               </Route>
             </Route>
@@ -40,5 +47,4 @@ root.render(
           </Routes>
       </BrowserRouter>
       <Alert />
-    </Provider>
-)
+    </Provider>, document.getElementById('root'))

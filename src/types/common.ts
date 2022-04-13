@@ -13,3 +13,8 @@ export type Pagination = {
   pageSize: number
   totalPages: number
 }
+
+export type EventAndDate = {
+  date: string
+  status: string
+}

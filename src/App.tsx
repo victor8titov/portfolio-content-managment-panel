@@ -6,7 +6,7 @@ import Footer from './components/common/footer'
 import Header from './components/common/header'
 import Aside from './components/common/aside'
 import MainSection from './components/common/main-section'
-import './styles.scss'
+import './styles/main.scss'
 
 const App: FC = () => {
   return (

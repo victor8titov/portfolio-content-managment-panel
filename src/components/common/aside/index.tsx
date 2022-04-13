@@ -42,8 +42,8 @@ const Aside: FC = () => {
           </Link>
         </Menu.Item>
 
-        <Menu.Item key="time-stamp">
-          <Link to="/time-stamp" onActive={() => setKey('time-stamp')}>
+        <Menu.Item key="time-stamps">
+          <Link to="/time-stamps" onActive={() => setKey('time-stamps')}>
             Time Stamp
           </Link>
         </Menu.Item>

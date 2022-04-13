@@ -78,7 +78,7 @@ const config = {
       extensions: ['js', 'jsx', 'ts', 'tsx']
     }),
 
-    new webpack.HotModuleReplacementPlugin(),
+    // new webpack.HotModuleReplacementPlugin(),
 
     // Moment.js is an extremely popular library that bundles large locale files
     // by default due to how webpack interprets its code. This is a practical
