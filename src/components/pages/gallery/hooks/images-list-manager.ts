@@ -22,7 +22,7 @@ const useImageListManager: UseImageListManager = () => {
   const listImages = useSelector((state: State) => state.gallery.images)
   const pagination = useSelector((state: State) => state.gallery.pagination)
 
-  const pullList = useCallback(async (page = 1, pageSize = 25) => {
+  const pullList = useCallback(async (page = 1, pageSize = 10) => {
     try {
       setIsLoadingImages(true)
       await dispatch(galleryActions.fetchImages({ page, pageSize }))

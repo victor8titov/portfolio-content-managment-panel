@@ -46,6 +46,7 @@ const Gallery: FC<Props> = (props) => {
               pageSize={pageSize}
               total={totalPages * pageSize}
               onChange={onChangePage}
+              showSizeChanger
               hideOnSinglePage
               pageSizeOptions={[10, 20, 50]}
               />

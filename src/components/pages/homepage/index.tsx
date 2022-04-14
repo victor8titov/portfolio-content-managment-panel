@@ -18,7 +18,7 @@ const Homepage: FC = () => {
       <Text>Here you can configure content for the main page of the site.</Text>
 
       <Row gutter={15}>
-        <Col xs={{ span: 24 }} md={{ span: 19 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 19 }}>
           <Spin tip='Loading...' spinning={loadingPage} >
             <HomepageForm form={form} />
           </Spin>

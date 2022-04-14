@@ -58,6 +58,7 @@ const updateProject = createAsyncThunk(
   async (payload: ProjectCreation & { id: string }, { rejectWithValue }) => {
     try {
       const { id, ...rest } = payload
+
       const response = await restApi.projects.update(id, rest)
       return response.data
     } catch (e) {

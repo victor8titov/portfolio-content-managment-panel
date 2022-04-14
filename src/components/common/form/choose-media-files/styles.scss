@@ -1,10 +1,8 @@
 .choose-media-files {
   display: flex;
   flex-wrap: wrap;
+  gap: 5px;
   align-items: center;
-  justify-content: center;
-  padding: 10px;
-  background-color: #fafafa;
 
   &__mask {
     display: flex;
@@ -20,7 +18,7 @@
     align-items: center;
     justify-content: center;
     width: 104px;
-    height: 104px;
+    height: 153px;
     text-align: center;
     vertical-align: top;
     cursor: pointer;
@@ -35,8 +33,6 @@
   }
 
   &__card {
-    margin: 0 5px 10px;
-
     .ant-empty-normal {
       margin: 0;
     }

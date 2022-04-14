@@ -47,6 +47,7 @@ const ChooseMediaFiles: FC<Props> = (props) => {
     <div className="choose-media-files">
       {value.length
         ? <>
+            {type === 'multiselect' ? <EmptyBox onClick={handleClickAddImage} /> : null}
             { value.map((file) => (
               <Card
                 className='choose-media-files__card'
@@ -58,7 +59,6 @@ const ChooseMediaFiles: FC<Props> = (props) => {
                 <Image src={getUrlImageByTemplate(file, 'mid')} className='choose-media-files__image'/>
               </Card>))
             }
-            {type === 'multiselect' ? <EmptyBox onClick={handleClickAddImage} /> : null}
           </>
 
         : <EmptyBox onClick={handleClickAddImage} />

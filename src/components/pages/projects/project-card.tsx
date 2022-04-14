@@ -1,9 +1,11 @@
 import React, { FC, useCallback, useMemo, useState } from 'react'
-import { Card, Empty, Modal, Space } from 'antd'
+import { Card, Empty, Image, Modal } from 'antd'
 import Text from 'antd/lib/typography/Text'
 import Title from 'antd/lib/typography/Title'
-import { DeleteOutlined, EditOutlined, StarOutlined, StarTwoTone, StopOutlined } from '@ant-design/icons'
+import { DeleteOutlined, EditOutlined, StopOutlined } from '@ant-design/icons'
 import { ProjectView } from '../../../api/types/projects'
+import { getUrlImageByTemplate } from '../../../utils/get-url-image'
+import { FALLBACK } from '../../common/image-card/constants'
 
 type PropsCard = {
   onDelete: (id: string) => void
@@ -17,6 +19,8 @@ const ProjectCard: FC<PropsCard> = (props) => {
 
   const [isDeleted, setIsDeleted] = useState<boolean>(false)
   const description = useMemo(() => project.description.slice(0, 50) + (project.description.length && project.description.length > 50 ? '...' : ''), [project])
+  const urlOriginal = useMemo(() => getUrlImageByTemplate(project.images[0], 'original'), [project])
+  const urlMiddle = useMemo(() => getUrlImageByTemplate(project.images[0], 'mid'), [project])
 
   const handleClickDelete = useCallback(() => {
     const handleOk = () => {
@@ -40,10 +44,15 @@ const ProjectCard: FC<PropsCard> = (props) => {
         isDeleting ? <StopOutlined key='disable' /> : <DeleteOutlined onClick={handleClickDelete} key='delete' />
       ]}>
         <Title level={5}>{project.name}</Title>
+        <Image
+          className="project-card__image"
+          src={urlMiddle}
+          preview={{ src: urlOriginal }}
+          fallback={FALLBACK}
+            />
         <div className='project-card__description'>
           <Text>{description}</Text>
         </div>
-
     </Card>
   )
 }

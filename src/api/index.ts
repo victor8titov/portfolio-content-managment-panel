@@ -116,7 +116,7 @@ export const timeStamps = {
 
 export const projects = {
   getList: async ({ page, pageSize, language }: QueryParameters): Promise<AxiosResponse<ProjectList>> =>
-    await instance.get(`${REST_API_URL}/api/projects?page=${page}&pagesize=${pageSize}&language=${language}`),
+    await instance.get(`${REST_API_URL}/api/projects?page=${page}&pageSize=${pageSize}&language=${language}`),
 
   create: async (payload: ProjectCreation): Promise<AxiosResponse<SimpleResponse>> =>
     await instance.post(`${REST_API_URL}/api/projects/`, payload),

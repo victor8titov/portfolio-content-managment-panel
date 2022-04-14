@@ -1,11 +1,12 @@
 import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Space, Spin } from 'antd'
+import { Button, Col, Row, Space, Spin } from 'antd'
 import Title from 'antd/lib/typography/Title'
 import { RollbackOutlined } from '@ant-design/icons'
 
 import useFormManager from './hooks/form-manager'
 import ProjectForm from './form'
+import ProjectFormImage from './form-image'
 import './styles.scss'
 
 const Project: FC = () => {
@@ -19,16 +20,29 @@ const Project: FC = () => {
         </Button>
       </div>
 
-      <Spin spinning={isLoading}>
-        <ProjectForm form={form} />
-      </Spin>
+      <Row gutter={15}>
+        <Col xs={{ span: 24 }} lg={{ span: 15 }}>
+          <Spin spinning={isLoading}>
+          <ProjectForm form={form} />
+          </Spin>
+        </Col>
 
-      <Space >
-        <Button type="primary" onClick={onSave} loading={isLoading}>{mode === 'new' ? 'Create' : 'Update'}</Button>
-        <Button loading={isLoading}>
-          <Link to='/projects'>Go to Projects <RollbackOutlined /></Link>
-        </Button>
-      </Space>
+        <Col xs={{ span: 24 }} lg={{ span: 9 }} className='project__sidebar'>
+          <Title level={4}>Media</Title>
+          <div className='project__images-list'>
+            <ProjectFormImage form={form} />
+          </div>
+        </Col>
+
+        <Col span={24}>
+          <Space >
+            <Button type="primary" onClick={onSave} loading={isLoading}>{mode === 'new' ? 'Create' : 'Update'}</Button>
+            <Button loading={isLoading}>
+              <Link to='/projects'>Go to Projects <RollbackOutlined /></Link>
+            </Button>
+          </Space>
+        </Col>
+      </Row>
     </div>
   )
 }

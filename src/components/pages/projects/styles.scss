@@ -1,5 +1,9 @@
 .projects {
   &__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
     margin-top: 20px;
   }
 
@@ -10,8 +14,12 @@
     margin: 10px 0;
   }
 
-  &__group {
-    margin-bottom: 30px;
+  &__pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
   }
 }
 
@@ -20,7 +28,8 @@
   min-height: 180px;
 
   &__description {
-    min-height: 25px;
+    min-height: 30px;
+    margin-top: 10px;
   }
 
   &_empty {

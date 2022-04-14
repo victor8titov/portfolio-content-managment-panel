@@ -2,11 +2,48 @@
   &__title {
     display: flex;
     align-items: center;
-    margin-bottom: 0.5em;
+    margin-bottom: 40px;
 
     h1 {
       margin: 0;
       margin-right: 30px;
     }
+  }
+
+  &__sidebar {
+    padding-left: 15px;
+  }
+
+  &__images-list {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+}
+
+.project-form {
+  &__stack-box {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__stack-add-button {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  &__event-add-button {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  &__links-add-button {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  &__tile-link {
+    display: flex;
+    align-items: center;
   }
 }

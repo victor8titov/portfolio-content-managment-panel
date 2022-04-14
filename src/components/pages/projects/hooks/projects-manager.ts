@@ -27,7 +27,7 @@ const useProjectsManager: UseProjectsManager = (language = Language.EN) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isDeleting, setIsDeleting] = useState<boolean>(false)
   const projects = useSelector((state: State) => state.projects.projects)
-  const pagination = useSelector((state: State) => state.gallery.pagination)
+  const pagination = useSelector((state: State) => state.projects.pagination)
 
   const getProjects = useCallback(async (query: QueryParameters) => {
     try {

@@ -1,6 +1,5 @@
 import React, { FC, useCallback, useState } from 'react'
-import { Affix, Button, Divider, Pagination, Space, Spin, Switch } from 'antd'
-import Text from 'antd/lib/typography/Text'
+import { Affix, Button, Pagination, Space, Spin, Switch } from 'antd'
 import Title from 'antd/lib/typography/Title'
 
 import { Language } from '../../../types/common'
@@ -39,9 +38,11 @@ const Projects: FC = () => {
       <Spin spinning={isLoading}>
         <div className='projects__body'>
 
-        {projects.map(item => (
-          <ProjectCard key={item.id} project={item} onDelete={onDelete} onUpdate={onUpdate} isDeleting={isDeleting} />
-        ))}
+        <Space align='center' wrap>
+          {projects.map(item => (
+            <ProjectCard key={item.id} project={item} onDelete={onDelete} onUpdate={onUpdate} isDeleting={isDeleting} />
+          ))}
+        </Space>
 
         <div className='projects__pagination'>
             <Pagination
@@ -49,6 +50,7 @@ const Projects: FC = () => {
               pageSize={pageSize}
               total={totalPages * pageSize}
               onChange={onChangePage}
+              showSizeChanger
               hideOnSinglePage
               pageSizeOptions={[10, 20, 50]}
               />
