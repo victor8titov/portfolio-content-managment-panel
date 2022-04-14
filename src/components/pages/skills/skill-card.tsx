@@ -40,7 +40,7 @@ const SkillCard: FC<PropsCard> = (props) => {
 
     return (
       <Space direction='horizontal'>
-        {stars.map(i => i ? <StarTwoTone style={{ fontSize: '12px' }} /> : <StarOutlined style={{ fontSize: '12px' }} />)}
+        {stars.map((i, index) => i ? <StarTwoTone key={index} style={{ fontSize: '12px' }} /> : <StarOutlined key={index} style={{ fontSize: '12px' }} />)}
       </Space>)
   }
 

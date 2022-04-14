@@ -1,0 +1,85 @@
+@import "../../../styles/veriables";
+
+.social-media {
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  &__add-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+  }
+}
+
+.social-media-card {
+  min-height: 52px;
+
+  & span {
+    word-break: break-all;
+  }
+
+  & .ant-card-body {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+
+    @media (max-width: $sm) {
+      flex-direction: column;
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+
+    @media (max-width: $sm) {
+      flex-direction: column;
+    }
+
+    & > .ant-typography {
+      margin: 0;
+      margin-right: 10px;
+
+      @media (max-width: $sm) {
+        margin-right: 0;
+      }
+    }
+  }
+
+  &__img {
+    width: 30px;
+    height: 30px;
+    margin-right: 20px;
+    border-radius: 100%;
+    object-fit: fill;
+
+    @media (max-width: $sm) {
+      margin-right: 0;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 0;
+
+    @media (max-width: $sm) {
+      margin-top: 20px;
+    }
+
+    .social-media-card__icon + .social-media-card__icon {
+      margin-left: 10px;
+    }
+  }
+}

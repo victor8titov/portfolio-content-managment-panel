@@ -7,6 +7,7 @@ import { ImageView, ListImages } from './types/image.types'
 import { AuthLoginBodyRequest, AuthLoginResponse, AuthLogoutQueryRequest, GetUserBodyResponse } from './types/profile.types'
 import { ProjectCreation, ProjectList, ProjectViewMultilingual } from './types/projects'
 import { ListSkillsResponse, SkillCreation, SkillViewMultilingual } from './types/skills.types'
+import { SocialMediaCreation, SocialMediaList } from './types/social-media.types'
 import { ListTimeStamps, TimeStampCreation, TimeStampViewMultilingual } from './types/time-stamp.types'
 
 const instance = axios.create({
@@ -129,4 +130,18 @@ export const projects = {
 
   getByIdMultilingual: async (id: string): Promise<AxiosResponse<ProjectViewMultilingual>> =>
     await instance.get(`${REST_API_URL}/api/project/${id}/multilingual`)
+}
+
+export const socialMedia = {
+  getList: async (): Promise<AxiosResponse<SocialMediaList>> =>
+    await instance.get(`${REST_API_URL}/api/social-media/`),
+
+  create: async (payload: SocialMediaCreation): Promise<AxiosResponse<SimpleResponse>> =>
+    await instance.post(`${REST_API_URL}/api/social-media/`, payload),
+
+  update: async (id: string, payload: SocialMediaCreation): Promise<AxiosResponse<SimpleResponse>> =>
+    await instance.put(`${REST_API_URL}/api/social-media/${id}`, payload),
+
+  delete: async (id: string): Promise<AxiosResponse<SimpleResponse>> =>
+    await instance.delete(`${REST_API_URL}/api/social-media/${id}`)
 }

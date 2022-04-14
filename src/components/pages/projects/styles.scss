@@ -1,3 +1,5 @@
+@import "../../../styles/veriables";
+
 .projects {
   &__body {
     display: flex;
@@ -26,6 +28,11 @@
 .project-card {
   width: 250px;
   min-height: 180px;
+
+  @media (max-width: $md) {
+    width: 100%;
+    max-width: 250px;
+  }
 
   &__description {
     min-height: 30px;

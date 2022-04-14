@@ -1,3 +1,5 @@
+@import "../../../styles/veriables";
+
 .project {
   &__title {
     display: flex;
@@ -18,6 +20,10 @@
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
+
+    @media (max-width: $md) {
+      justify-content: center;
+    }
   }
 }
 

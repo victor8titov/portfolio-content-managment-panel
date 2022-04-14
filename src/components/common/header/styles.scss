@@ -1,0 +1,26 @@
+@import "../../../styles/veriables";
+
+.header {
+  position: relative;
+  padding: 0;
+  background: #f0f2f5;
+
+  &__logout {
+    position: absolute;
+    top: 18px;
+    right: 40px;
+  }
+}
+
+.trigger {
+  display: inline-flex;
+  padding: 24px;
+  font-size: 18px;
+  line-height: 64px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}

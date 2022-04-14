@@ -38,7 +38,7 @@ const Projects: FC = () => {
       <Spin spinning={isLoading}>
         <div className='projects__body'>
 
-        <Space align='center' wrap>
+        <Space align='start' wrap>
           {projects.map(item => (
             <ProjectCard key={item.id} project={item} onDelete={onDelete} onUpdate={onUpdate} isDeleting={isDeleting} />
           ))}

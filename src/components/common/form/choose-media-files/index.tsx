@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react'
+import React, { FC, useCallback, useMemo, useState } from 'react'
 import { Card, Image } from 'antd'
 import { PlusOutlined, CloseCircleOutlined, RedoOutlined } from '@ant-design/icons'
 
@@ -8,13 +8,15 @@ import MediaFileSelections from '../../media-file-selection'
 import './styles.scss'
 
 type Props = {
-  value?: ImageView[]
+  value?: ImageView[] | undefined | null
   onChange?: (files: ImageView[]) => void
   type?: 'select-one' | 'multiselect'
 }
 
 const ChooseMediaFiles: FC<Props> = (props) => {
-  const { value = [], onChange, type = 'multiselect' } = props
+  const { onChange, type = 'multiselect' } = props
+
+  const value = useMemo(() => props.value || [], [props.value])
   const [visibleModal, setVisibleModal] = useState<boolean>(false)
 
   const handleSelect = useCallback((files: ImageView[]) => {

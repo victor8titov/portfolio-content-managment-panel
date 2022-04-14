@@ -46,7 +46,7 @@ const useSkillsManager: UseSkillsManager = (language = Language.EN) => {
   }, [dispatch, getSkills, language])
 
   const onUpdate = useCallback((id: string) => {
-    navigate(`/skills/${id}`)
+    navigate(`/admin/skills/${id}`)
   }, [navigate])
 
   const onDelete = useCallback(async (id: string) => {
@@ -65,7 +65,7 @@ const useSkillsManager: UseSkillsManager = (language = Language.EN) => {
   }, [dispatch, language])
 
   const onAddNew = useCallback(() => {
-    navigate('/skills/new')
+    navigate('/admin/skills/new')
   }, [navigate])
 
   return {

@@ -1,4 +1,4 @@
-import { ImageView } from "../api/types/image.types"
+import { ImageView } from '../api/types/image.types'
 
 export type ObjectWithLanguage = {
   [K in Language]: string

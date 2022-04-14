@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import { Layout } from 'antd'
 
@@ -9,21 +9,21 @@ import MainSection from './components/common/main-section'
 import './styles/main.scss'
 
 const App: FC = () => {
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(false)
+
   return (
-    <Layout className='portfolio'>
-      <Aside />
+      <Layout className='portfolio'>
+        <Aside onCollapsed={setIsCollapsed} isCollapsed={isCollapsed} />
 
-      <Layout>
+        <Layout>
+          <Header isCollapsed={isCollapsed} onCollapsed={setIsCollapsed} />
 
-        <Header />
+          <MainSection>
+            <Outlet />
+          </MainSection>
 
-        <MainSection>
-          <Outlet />
-        </MainSection>
-
-       <Footer />
-
-      </Layout>
+          <Footer />
+        </Layout>
     </Layout>
   )
 }

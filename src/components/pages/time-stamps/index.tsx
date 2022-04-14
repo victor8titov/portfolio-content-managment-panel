@@ -1,5 +1,5 @@
-import React, { FC, useCallback, useState } from 'react'
-import { Affix, Button, Spin, Switch, Timeline } from 'antd'
+import React, { FC, useCallback, useMemo, useState } from 'react'
+import { Affix, Button, Grid, Spin, Switch, Timeline } from 'antd'
 import Text from 'antd/lib/typography/Text'
 import Title from 'antd/lib/typography/Title'
 
@@ -10,9 +10,14 @@ import LabelTimeStamp from './label-time-stamp'
 import TimeStampCard from './time-stamp-card'
 import './styles.scss'
 
+const { useBreakpoint } = Grid
+
 const TimeStamps: FC = () => {
   const [language, setLanguage] = useState<Language>(Language.EN)
   const { timeStamps, isLoading, onUpdate, onDelete, isDeleting, onAddNew } = useTimeStampsManager(language)
+
+  const screens = useBreakpoint()
+  const isDesktop = useMemo(() => screens.sm, [screens])
 
   const handleChangeLanguage = useCallback((checked: boolean) => {
     setLanguage(checked ? Language.EN : Language.RU)
@@ -40,13 +45,24 @@ const TimeStamps: FC = () => {
 
       <Spin spinning={isLoading}>
         <div className='time-stamps__body'>
-        <Timeline mode='left'>
-          {timeStamps.map((item: TimeStampView) => (
-            <Timeline.Item label={<LabelTimeStamp events={item.events} />} key={item.id}>
-              <TimeStampCard onUpdate={onUpdate} isDeleting={isDeleting} onDelete={onDelete} timeStamp={item} />
-            </Timeline.Item>
-          ))}
-        </Timeline>
+        {isDesktop
+          ? <Timeline mode='left'>
+              {timeStamps.map((item: TimeStampView) => (
+                <Timeline.Item label={<LabelTimeStamp events={item.events} />} key={item.id}>
+                  <TimeStampCard onUpdate={onUpdate} isDeleting={isDeleting} onDelete={onDelete} timeStamp={item} />
+                </Timeline.Item>))
+              }
+            </Timeline>
+          : null
+        }
+        {!isDesktop
+          ? timeStamps.map((item: TimeStampView) => (
+              <div key={item.id}>
+                <LabelTimeStamp events={item.events} />
+                <TimeStampCard onUpdate={onUpdate} isDeleting={isDeleting} onDelete={onDelete} timeStamp={item} />
+              </div>))
+          : null
+        }
         </div>
       </Spin>
     </div>

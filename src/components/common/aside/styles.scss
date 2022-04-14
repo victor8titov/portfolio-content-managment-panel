@@ -1,21 +1,23 @@
+@import "../../../styles/veriables";
+
 .sidebar {
-  .logo {
-    height: 32px;
-    margin: 16px;
-    background: rgb(255 255 255 / 0.3);
+  padding-top: 100px;
+  background: #f0f2f5;
+
+  @media (max-width: $md) {
+    position: fixed;
+    top: 50px;
+    bottom: 0;
+    z-index: 100;
+    padding-top: 10px;
+    background: #001529;
   }
 
-  .trigger {
-    width: 50px;
-    height: 50px;
-    padding: 0 24px;
-    font-size: 18px;
-    line-height: 64px;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
+  &__menu {
+    background: #f0f2f5;
 
-  .trigger:hover {
-    color: #1890ff;
+    @media (max-width: $md) {
+      background: #001529;
+    }
   }
 }

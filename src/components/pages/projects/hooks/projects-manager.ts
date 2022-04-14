@@ -48,7 +48,7 @@ const useProjectsManager: UseProjectsManager = (language = Language.EN) => {
   }, [dispatch, getProjects, language])
 
   const onUpdate = useCallback((id: string) => {
-    navigate(`/projects/${id}`)
+    navigate(`/admin/projects/${id}`)
   }, [navigate])
 
   const onDelete = useCallback(async (id: string) => {
@@ -67,7 +67,7 @@ const useProjectsManager: UseProjectsManager = (language = Language.EN) => {
   }, [dispatch, language])
 
   const onAddNew = useCallback(() => {
-    navigate('/projects/new')
+    navigate('/admin/projects/new')
   }, [navigate])
 
   const onChangePage = useCallback((page: number, pageSize: number) => {

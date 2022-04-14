@@ -4,14 +4,14 @@ import { Button, Grid, Space, Spin } from 'antd'
 import Title from 'antd/lib/typography/Title'
 import { RollbackOutlined } from '@ant-design/icons'
 
-import SkillForm from './form'
-import useFormManager from './hooks/form-manager'
 import './styles.scss'
+import useFormManager from './hooks/form-manager'
+import SocialMediaLinkForm from './form'
 
 const { useBreakpoint } = Grid
 
-const Skill: FC = () => {
-  const { form, groups, onSave, isLoading, mode } = useFormManager()
+const SocialMediaLink: FC = () => {
+  const { form, onSave, isLoading, mode } = useFormManager()
 
   const screens = useBreakpoint()
   const isDesktop = useMemo(() => screens.md, [screens])
@@ -19,20 +19,20 @@ const Skill: FC = () => {
   const GoBack: FC = () => {
     return (
       <Button loading={isLoading}>
-        <Link to='/admin/skills'>{isDesktop ? 'Go to Skills ' : ''} <RollbackOutlined /></Link>
+        <Link to='/admin/social-media'>{isDesktop ? 'Go to Social Media ' : ''}  <RollbackOutlined /></Link>
       </Button>
     )
   }
 
   return (
-    <div className='skill'>
-      <div className='skill__title'>
-        <Title>Skill</Title>
+    <div className='social-media-link'>
+      <div className='social-media-link__title'>
+        <Title>Social Media Link</Title>
         <GoBack />
       </div>
 
       <Spin spinning={isLoading}>
-        <SkillForm form={form} groups={groups} />
+        <SocialMediaLinkForm form={form} />
       </Spin>
 
       <Space >
@@ -43,4 +43,4 @@ const Skill: FC = () => {
   )
 }
 
-export default Skill
+export default SocialMediaLink

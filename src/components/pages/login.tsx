@@ -12,13 +12,20 @@ const Login: FC = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const isLoggedIn = useSelector((state: State) => state.profile.isLoggedIn)
+  const authenticationCheckStatus = useSelector((state: State) => state.profile.authenticationCheckStatus)
 
   const handleSubmit = (fields: { username: string, password: string }) => {
     dispatch(profileActions.fetchLogin(fields))
   }
 
   useEffect(() => {
-    if (isLoggedIn) navigate('/homepage')
+    if (isLoggedIn) return
+
+    dispatch(profileActions.authenticationCheckStatus())
+  }, [dispatch, isLoggedIn, authenticationCheckStatus])
+
+  useEffect(() => {
+    if (isLoggedIn) navigate('/admin/homepage')
   }, [isLoggedIn, navigate])
 
   return (
@@ -28,7 +35,6 @@ const Login: FC = () => {
             name="login"
             layout='vertical'
             onFinish={handleSubmit}
-            // validateMessages={validateMessages}
             autoComplete='off'>
             <Form.Item
               label="Username"

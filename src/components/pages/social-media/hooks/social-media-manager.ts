@@ -1,34 +1,33 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { SocialMediaView } from '../../../../api/types/social-media.types'
 
 import { AppDispatch, State } from '../../../../store'
 import { alertActions } from '../../../../store/slices/alert'
-import { Language } from '../../../../types/common'
-import { TimeStampView } from '../../../../api/types/time-stamp.types'
-import { timeStampsAction } from '../../../../store/slices/time-stamps'
+import { socialMediaAction } from '../../../../store/slices/social-media'
 
-type UseTimeStampsManager = (language?: Language) => {
+type UseSocialMediaManager = () => {
   onUpdate: (id: string) => void
   onDelete: (id: string) => void
   onAddNew: () => void
-  timeStamps: TimeStampView[]
+  socialMedia: SocialMediaView[]
   isLoading: boolean
   isDeleting: boolean
 }
 
-const useTimeStampsManager: UseTimeStampsManager = (language = Language.EN) => {
+const useSocialMediaManager: UseSocialMediaManager = () => {
   const dispatch: AppDispatch = useDispatch()
   const navigate = useNavigate()
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isDeleting, setIsDeleting] = useState<boolean>(false)
-  const timeStamps = useSelector((state: State) => state.timeStamps.timeStamps)
+  const socialMedia = useSelector((state: State) => state.socialMedia.socialMedia)
 
-  const getTimeStamps = useCallback(async (language) => {
+  const getSocialMediaList = useCallback(async () => {
     try {
       setIsLoading(true)
-      await dispatch(timeStampsAction.fetchTimeStamps(language))
+      await dispatch(socialMediaAction.fetchSocialMedia())
     } catch (e: any) {
       if (e.message) dispatch(alertActions.pushMessage({ message: e.message, severity: 'error' }))
     } finally {
@@ -37,37 +36,37 @@ const useTimeStampsManager: UseTimeStampsManager = (language = Language.EN) => {
   }, [dispatch])
 
   useEffect(() => {
-    getTimeStamps(language)
+    getSocialMediaList()
     return () => {
-      dispatch(timeStampsAction.clear())
+      dispatch(socialMediaAction.clear())
     }
-  }, [dispatch, getTimeStamps, language])
+  }, [dispatch, getSocialMediaList])
+
+  const onUpdate = useCallback((id: string) => {
+    navigate(`/admin/social-media/${id}`)
+  }, [navigate])
 
   const onDelete = useCallback(async (id: string) => {
     try {
       setIsDeleting(true)
-      await dispatch(timeStampsAction.deleteTimeStamp(id))
+      await dispatch(socialMediaAction.deleteSocialMedia(id))
 
       setIsLoading(true)
-      await dispatch(timeStampsAction.fetchTimeStamps(language))
+      await dispatch(socialMediaAction.fetchSocialMedia())
     } catch (e: any) {
       if (e.message) dispatch(alertActions.pushMessage({ message: e.message, severity: 'error' }))
     } finally {
       setIsLoading(false)
       setIsDeleting(false)
     }
-  }, [dispatch, language])
+  }, [dispatch])
 
   const onAddNew = useCallback(() => {
-    navigate('/admin/time-stamps/new')
-  }, [navigate])
-
-  const onUpdate = useCallback((id: string) => {
-    navigate(`/admin/time-stamps/${id}`)
+    navigate('/admin/social-media/new')
   }, [navigate])
 
   return {
-    timeStamps,
+    socialMedia,
     onUpdate,
     onDelete,
     onAddNew,
@@ -76,4 +75,4 @@ const useTimeStampsManager: UseTimeStampsManager = (language = Language.EN) => {
   }
 }
 
-export default useTimeStampsManager
+export default useSocialMediaManager

@@ -37,7 +37,13 @@ const fetchLogin = createAsyncThunk(
 
 const fetchLogout = createAsyncThunk(
   'fetchLogout',
-  async (payload: AuthLogoutQueryRequest) => await restApi.auth.logout(payload)
+  async (payload: AuthLogoutQueryRequest, { rejectWithValue }) => {
+    try {
+      return await restApi.auth.logout(payload)
+    } catch (e) {
+      return rejectWithValue(errorSerialization(e))
+    }
+  }
 )
 
 const authenticationCheckStatus = createAsyncThunk(
@@ -58,7 +64,7 @@ const fetchUser = createAsyncThunk(
 )
 
 const profileSlice = createSlice({
-  name: 'user',
+  name: 'profile',
   initialState: initialProfileState,
   reducers: {
     clearProfile (state) {

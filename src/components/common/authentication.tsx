@@ -16,7 +16,7 @@ const Authentication: FC = (): ReactElement | null => {
     if (isLoggedIn) return
 
     if (authenticationCheckStatus === 'failure') {
-      navigate('/login')
+      navigate('/admin/login')
       return
     }
 

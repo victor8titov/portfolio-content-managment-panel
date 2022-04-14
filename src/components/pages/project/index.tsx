@@ -1,6 +1,6 @@
-import React, { FC } from 'react'
+import React, { FC, useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Col, Row, Space, Spin } from 'antd'
+import { Button, Col, Row, Space, Spin, Grid } from 'antd'
 import Title from 'antd/lib/typography/Title'
 import { RollbackOutlined } from '@ant-design/icons'
 
@@ -9,15 +9,27 @@ import ProjectForm from './form'
 import ProjectFormImage from './form-image'
 import './styles.scss'
 
+const { useBreakpoint } = Grid
+
 const Project: FC = () => {
   const { form, onSave, isLoading, mode } = useFormManager()
+
+  const screens = useBreakpoint()
+  const isDesktop = useMemo(() => screens.md, [screens])
+
+  const GoBack: FC = () => {
+    return (
+      <Button loading={isLoading}>
+        <Link to='/admin/projects'>{isDesktop ? 'Go to Projects ' : ''}<RollbackOutlined /></Link>
+      </Button>
+    )
+  }
+
   return (
     <div className='project'>
       <div className='project__title'>
         <Title>Project</Title>
-        <Button>
-          <Link to='/projects'>Go to Projects<RollbackOutlined /></Link>
-        </Button>
+        <GoBack />
       </div>
 
       <Row gutter={15}>
@@ -37,9 +49,7 @@ const Project: FC = () => {
         <Col span={24}>
           <Space >
             <Button type="primary" onClick={onSave} loading={isLoading}>{mode === 'new' ? 'Create' : 'Update'}</Button>
-            <Button loading={isLoading}>
-              <Link to='/projects'>Go to Projects <RollbackOutlined /></Link>
-            </Button>
+            <GoBack />
           </Space>
         </Col>
       </Row>

@@ -21,6 +21,10 @@
 .time-stamp-card {
   min-height: 180px;
 
+  @media (max-width: $sm) {
+    margin-bottom: 20px;
+  }
+
   &__description {
     position: relative;
     left: -10px;

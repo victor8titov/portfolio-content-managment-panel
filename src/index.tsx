@@ -20,8 +20,10 @@ import Skill from './components/pages/skill'
 import TimeStamps from './components/pages/time-stamps'
 import TimeStamp from './components/pages/time-stamp'
 import Project from './components/pages/project'
+import SocialMedia from './components/pages/social-media'
+import SocialMediaLink from './components/pages/social-media-link'
 
-const root = createRoot(document.getElementById('root') as Element)
+// const root = createRoot(document.getElementById('root') as Element)
 
 // TODO have problem with select from antd. Browser freeze if use antd select
 // it is happening if use react 18
@@ -31,7 +33,7 @@ ReactDOM.render(
     <Provider store={store}>
       <BrowserRouter>
           <Routes>
-            <Route path='/' element={<Authentication />}>
+            <Route path='admin/' element={<Authentication />}>
               <Route element={<App />} >
                 <Route path='homepage' element={<Homepage />} />
                 <Route path='projects' element={<Projects />} />
@@ -40,11 +42,14 @@ ReactDOM.render(
                 <Route path='skills/:skillId' element={<Skill />} />
                 <Route path='time-stamps' element={<TimeStamps />} />
                 <Route path='time-stamps/:timeStampId' element={<TimeStamp />} />
+                <Route path='social-media' element={<SocialMedia />} />
+                <Route path='social-media/:socialMediaId' element={<SocialMediaLink />} />
                 <Route path='gallery' element={<Gallery />} />
+                <Route path='' element={<Login />} />
               </Route>
             </Route>
 
-            <Route path='/login' element={<Login />} />
+            <Route path='admin/login' element={<Login />} />
             <Route path='*' element={<Error404 />} />
           </Routes>
       </BrowserRouter>
