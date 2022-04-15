@@ -15,7 +15,7 @@ type Props = {
 const Header: FC<Props> = ({ isCollapsed = true, onCollapsed }) => {
   const screens = useBreakpoint()
   const isMobile = useMemo(() => !screens.md, [screens])
-  const { logout } = useLogout()
+  const { onLogout } = useLogout()
 
   const handleTrigger = useCallback(() => {
     if (onCollapsed) onCollapsed(!isCollapsed)
@@ -33,7 +33,7 @@ const Header: FC<Props> = ({ isCollapsed = true, onCollapsed }) => {
           : null
         }
         <div className='header__right-bar'>
-          <Button className='header__logout' onClick={logout}>
+          <Button className='header__logout' onClick={onLogout}>
             Log out <LogoutOutlined />
           </Button>
 

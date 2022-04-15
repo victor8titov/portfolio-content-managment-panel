@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import * as restApi from '../../api'
-import { errorSerialization } from '..'
+import { errorSerialization } from '../utils'
 import { Language, Pagination } from '../../types/common'
 import { ProjectCreation, ProjectView, ProjectViewMultilingual } from '../../api/types/projects'
 import { QueryParameters } from '../../api/types/common'

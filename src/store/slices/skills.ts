@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import * as restApi from '../../api'
-import { errorSerialization } from '..'
+import { errorSerialization } from '../utils'
 import { SkillCreation, SkillView, SkillViewMultilingual } from '../../api/types/skills.types'
 import { Language } from '../../types/common'
 

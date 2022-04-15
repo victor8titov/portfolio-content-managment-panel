@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import * as restApi from '../../api'
-import { errorSerialization } from '..'
+import { errorSerialization } from '../utils'
 import { SocialMediaCreation, SocialMediaView } from '../../api/types/social-media.types'
 
 export type SocialMediaState = {

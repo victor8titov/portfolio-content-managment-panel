@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { ImageView } from '../../api/types/image.types'
 import * as restApi from '../../api'
-import { errorSerialization } from '..'
+import { errorSerialization } from '../utils'
 
 export type UploadState = {
   image: ImageView | null

@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import * as restApi from '../../api'
-import { errorSerialization } from '..'
 import { HomePageCreation, HomePageMultilingualResponse } from '../../api/types/homepage.types'
+import { errorSerialization } from '../utils'
 
 export type HomePageState = {
   data: HomePageMultilingualResponse | null

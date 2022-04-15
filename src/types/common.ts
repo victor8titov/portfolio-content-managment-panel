@@ -1,5 +1,3 @@
-import { ImageView } from '../api/types/image.types'
-
 export type ObjectWithLanguage = {
   [K in Language]: string
 }
@@ -18,14 +16,4 @@ export type Pagination = {
 export type EventAndDate = {
   date: string
   status: string
-}
-
-export type LinkView = {
-  readonly name: string
-  readonly link: string
-  readonly icon?: ImageView
-}
-
-export type LinkCreation = Omit<LinkView, 'icon'> & {
-  imageId: string
 }

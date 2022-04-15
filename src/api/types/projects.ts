@@ -1,5 +1,6 @@
-import { EventAndDate, Language, LinkCreation, LinkView, ObjectWithLanguage } from '../../types/common'
+import { EventAndDate, Language, ObjectWithLanguage } from '../../types/common'
 import { ImageView } from './image.types'
+import { LinkCreation, LinkView } from './link.types'
 
 export type ProjectCreation = {
   readonly name: string

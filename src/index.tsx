@@ -7,6 +7,7 @@ import 'antd/dist/antd.css'
 
 import App from './App'
 import store from './store'
+import * as routes from './constants/routes'
 
 import Error404 from './components/pages/404'
 import Homepage from './components/pages/homepage'
@@ -22,6 +23,7 @@ import TimeStamp from './components/pages/time-stamp'
 import Project from './components/pages/project'
 import SocialMedia from './components/pages/social-media'
 import SocialMediaLink from './components/pages/social-media-link'
+import './styles/main.scss'
 
 // const root = createRoot(document.getElementById('root') as Element)
 
@@ -33,23 +35,23 @@ ReactDOM.render(
     <Provider store={store}>
       <BrowserRouter>
           <Routes>
-            <Route path='admin/' element={<Authentication />}>
+            <Route path={routes.ADMIN} element={<Authentication />}>
               <Route element={<App />} >
-                <Route path='homepage' element={<Homepage />} />
-                <Route path='projects' element={<Projects />} />
-                <Route path='projects/:projectId' element={<Project />} />
-                <Route path='skills' element={<Skills />} />
-                <Route path='skills/:skillId' element={<Skill />} />
-                <Route path='time-stamps' element={<TimeStamps />} />
-                <Route path='time-stamps/:timeStampId' element={<TimeStamp />} />
-                <Route path='social-media' element={<SocialMedia />} />
-                <Route path='social-media/:socialMediaId' element={<SocialMediaLink />} />
-                <Route path='gallery' element={<Gallery />} />
+                <Route path={routes.HOMEPAGE} element={<Homepage />} />
+                <Route path={routes.PROJECTS} element={<Projects />} />
+                <Route path={routes.PROJECT} element={<Project />} />
+                <Route path={routes.SKILLS} element={<Skills />} />
+                <Route path={routes.SKILL} element={<Skill />} />
+                <Route path={routes.TIME_STAMPS} element={<TimeStamps />} />
+                <Route path={routes.TIME_STAMP} element={<TimeStamp />} />
+                <Route path={routes.SOCIAL_MEDIA} element={<SocialMedia />} />
+                <Route path={routes.SOCIAL_MEDIA_LINK} element={<SocialMediaLink />} />
+                <Route path={routes.GALLERY} element={<Gallery />} />
                 <Route path='' element={<Login />} />
               </Route>
             </Route>
 
-            <Route path='admin/login' element={<Login />} />
+            <Route path={routes.LOGIN} element={<Login />} />
             <Route path='*' element={<Error404 />} />
           </Routes>
       </BrowserRouter>

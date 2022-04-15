@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { isLoggedIn } from 'axios-jwt'
-import { errorSerialization } from '..'
+import { errorSerialization } from '../utils'
 import * as restApi from '../../api'
 import { AuthLoginBodyRequest, AuthLogoutQueryRequest } from '../../api/types/profile.types'
 import { ErrorSerializable } from '../index.types'
@@ -37,7 +37,7 @@ const fetchLogin = createAsyncThunk(
 
 const fetchLogout = createAsyncThunk(
   'fetchLogout',
-  async (payload: AuthLogoutQueryRequest, { rejectWithValue }) => {
+  async (payload: AuthLogoutQueryRequest | undefined, { rejectWithValue }) => {
     try {
       return await restApi.auth.logout(payload)
     } catch (e) {

@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { ImageView } from '../../api/types/image.types'
 import * as restApi from '../../api'
-import { errorSerialization } from '..'
 import { Pagination } from '../../types/common'
+import { errorSerialization } from '../utils'
 
 export type GalleryState = {
   images: ImageView[] | []

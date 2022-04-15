@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import * as restApi from '../../api'
-import { errorSerialization } from '..'
+import { errorSerialization } from '../utils'
 import { Language } from '../../types/common'
 import { TimeStampCreation, TimeStampView, TimeStampViewMultilingual } from '../../api/types/time-stamp.types'
 
