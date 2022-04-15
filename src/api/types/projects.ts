@@ -13,19 +13,19 @@ export type ProjectCreation = {
   readonly imagesId?: string[]
 }
 
-export type ProjectView = Omit<ProjectCreation, 'imagesId' | 'description' | 'links'> & {
-  readonly id: string
-  readonly description: string
-  readonly images: ImageView[]
+export type ProjectView = Partial<Omit<ProjectCreation, 'imagesId' | 'description' | 'links'>> & {
+  readonly id?: string
+  readonly description?: string
+  readonly images?: ImageView[]
+  readonly links?: LinkView[]
   readonly languages?: Language[]
   readonly currentLanguage?: Language
-  readonly links: LinkView[]
 }
 
-export type ProjectViewMultilingual = Required<Omit<ProjectCreation, 'imagesId' | 'links'>> & {
-  readonly id: string
-  readonly images: ImageView[]
-  readonly links: LinkView[]
+export type ProjectViewMultilingual = Partial<Omit<ProjectCreation, 'imagesId' | 'links'>> & {
+  readonly id?: string
+  readonly images?: ImageView[]
+  readonly links?: LinkView[]
 }
 
 export type ProjectList = {

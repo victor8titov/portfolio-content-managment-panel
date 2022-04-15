@@ -1,16 +1,14 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { QueryParameters } from '../../../../api/types/common'
 import { ProjectView } from '../../../../api/types/projects'
 import { ADMIN, pathJoin, PROJECTS } from '../../../../constants/routes'
 
 import { AppDispatch, State } from '../../../../store'
-import { alertActions } from '../../../../store/slices/alert'
 import { projectsAction } from '../../../../store/slices/projects'
 import { Language, Pagination } from '../../../../types/common'
 
-type UseProjectsManager = (language?: Language) => {
+type UseProjectsManager = () => {
   onUpdate: (id: string) => void
   onDelete: (id: string) => void
   onAddNew: () => void
@@ -19,34 +17,26 @@ type UseProjectsManager = (language?: Language) => {
   isDeleting: boolean
   pagination: Pagination
   onChangePage: (page: number, pageSize: number) => void
+  onChangeLanguage: (language: Language) => void
 }
 
-const useProjectsManager: UseProjectsManager = (language = Language.EN) => {
+const useProjectsManager: UseProjectsManager = () => {
   const dispatch: AppDispatch = useDispatch()
   const navigate = useNavigate()
 
-  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isDeleting, setIsDeleting] = useState<boolean>(false)
-  const projects = useSelector((state: State) => state.projects.projects)
-  const pagination = useSelector((state: State) => state.projects.pagination)
+  const [language, setLanguage] = useState<Language>(Language.EN)
 
-  const getProjects = useCallback(async (query: QueryParameters) => {
-    try {
-      setIsLoading(true)
-      await dispatch(projectsAction.fetchProjects(query))
-    } catch (e: any) {
-      if (e.message) dispatch(alertActions.pushMessage({ message: e.message, severity: 'error' }))
-    } finally {
-      setIsLoading(false)
-    }
-  }, [dispatch])
+  const projects = useSelector((state: State) => state.projects.projects)
+  const isLoading = useSelector((state: State) => state.projects.isLoading)
+  const pagination = useSelector((state: State) => state.projects.pagination)
+  const isRotten = useSelector((state: State) => state.projects.isRotten)
 
   useEffect(() => {
-    getProjects({ page: 1, pageSize: 10, language })
-    return () => {
-      dispatch(projectsAction.clear())
+    if (isRotten && !isLoading) {
+      dispatch(projectsAction.fetchProjects({ page: 1, pageSize: 10, language }))
     }
-  }, [dispatch, getProjects, language])
+  }, [dispatch, language, isRotten, isLoading])
 
   const onUpdate = useCallback((id: string) => {
     navigate(pathJoin(ADMIN, PROJECTS, id))
@@ -54,26 +44,34 @@ const useProjectsManager: UseProjectsManager = (language = Language.EN) => {
 
   const onDelete = useCallback(async (id: string) => {
     try {
-      setIsDeleting(true)
-      await dispatch(projectsAction.deleteProject(id))
+      if (isLoading) return
 
-      setIsLoading(true)
+      setIsDeleting(true)
+      await dispatch(projectsAction.deleteProject(id)).unwrap()
+
       await dispatch(projectsAction.fetchProjects({ page: 1, pageSize: 10, language }))
-    } catch (e: any) {
-      if (e.message) dispatch(alertActions.pushMessage({ message: e.message, severity: 'error' }))
     } finally {
-      setIsLoading(false)
       setIsDeleting(false)
     }
-  }, [dispatch, language])
+  }, [dispatch, language, isLoading])
 
   const onAddNew = useCallback(() => {
     navigate(pathJoin(ADMIN, PROJECTS, 'new'))
   }, [navigate])
 
   const onChangePage = useCallback((page: number, pageSize: number) => {
-    getProjects({ page, pageSize, language })
-  }, [getProjects, language])
+    if (isLoading) return
+
+    dispatch(projectsAction.fetchProjects({ page, pageSize, language }))
+  }, [dispatch, language, isLoading])
+
+  const onChangeLanguage = useCallback((language: Language) => {
+    if (isLoading) return
+
+    setLanguage(language)
+    const payload = { page: pagination?.page || 1, pageSize: pagination?.pageSize || 10, language }
+    dispatch(projectsAction.fetchProjects(payload))
+  }, [dispatch, isLoading, pagination])
 
   return {
     projects,
@@ -87,7 +85,8 @@ const useProjectsManager: UseProjectsManager = (language = Language.EN) => {
       pageSize: pagination?.pageSize || 10,
       totalPages: pagination?.totalPages || 0
     },
-    onChangePage
+    onChangePage,
+    onChangeLanguage
   }
 }
 

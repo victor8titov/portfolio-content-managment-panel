@@ -4,17 +4,22 @@ import { errorSerialization } from '../utils'
 import { Language, Pagination } from '../../types/common'
 import { ProjectCreation, ProjectView, ProjectViewMultilingual } from '../../api/types/projects'
 import { QueryParameters } from '../../api/types/common'
+import { ActionAddMatcher } from './alert'
 
 export type ProjectState = {
   projects: ProjectView[]
   project: ProjectViewMultilingual | null
   pagination: Pagination | null
+  isLoading: boolean,
+  isRotten: boolean,
 }
 
 const initialState: ProjectState = {
   project: null,
   projects: [],
-  pagination: null
+  pagination: null,
+  isLoading: false,
+  isRotten: true
 }
 
 const fetchProjects = createAsyncThunk(
@@ -85,8 +90,6 @@ const projectSlice = createSlice({
   reducers: {
     clear (state) {
       state.project = initialState.project
-      state.projects = initialState.projects
-      state.pagination = initialState.pagination
     }
   },
   extraReducers: (builder) => {
@@ -94,10 +97,35 @@ const projectSlice = createSlice({
       .addCase(fetchProjects.fulfilled, (state, { payload }) => {
         state.projects = payload.items
         state.pagination = payload.pagination || null
+        state.isRotten = false
+      })
+      .addCase(fetchProjects.rejected, (state) => {
+        state.isRotten = false
       })
       .addCase(fetchProjectById.fulfilled, (state, { payload }) => {
         state.project = payload
       })
+      .addCase(createProject.fulfilled, (state) => {
+        state.isRotten = true
+      })
+      .addCase(updateProject.fulfilled, (state) => {
+        state.isRotten = true
+      })
+      .addCase(deleteProject.fulfilled, (state) => {
+        state.isRotten = true
+      })
+      .addMatcher(
+        (action): action is ActionAddMatcher => /Project.+\/(rejected|fulfilled)/.test(action.type),
+        (state) => {
+          state.isLoading = false
+        }
+      )
+      .addMatcher(
+        (action): action is ActionAddMatcher => /Project.+\/pending/.test(action.type),
+        (state) => {
+          state.isLoading = true
+        }
+      )
   }
 })
 

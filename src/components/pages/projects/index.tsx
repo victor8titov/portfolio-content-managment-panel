@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react'
+import React, { FC, useCallback } from 'react'
 import { Affix, Button, Pagination, Space, Spin, Switch } from 'antd'
 import Title from 'antd/lib/typography/Title'
 
@@ -8,13 +8,12 @@ import useProjectsManager from './hooks/projects-manager'
 import ProjectCard from './project-card'
 
 const Projects: FC = () => {
-  const [language, setLanguage] = useState<Language>(Language.EN)
-  const { projects, isLoading, onUpdate, onDelete, isDeleting, onAddNew, pagination, onChangePage } = useProjectsManager(language)
+  const { projects, isLoading, onUpdate, onDelete, isDeleting, onAddNew, pagination, onChangePage, onChangeLanguage } = useProjectsManager()
   const { page, pageSize, totalPages } = pagination
 
   const handleChangeLanguage = useCallback((checked: boolean) => {
-    setLanguage(checked ? Language.EN : Language.RU)
-  }, [])
+    onChangeLanguage(checked ? Language.EN : Language.RU)
+  }, [onChangeLanguage])
 
   return (
     <div className='projects'>

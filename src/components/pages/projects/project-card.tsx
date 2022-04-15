@@ -18,20 +18,21 @@ const ProjectCard: FC<PropsCard> = (props) => {
   const { project, onDelete, onUpdate, isDeleting } = props
 
   const [isDeleted, setIsDeleted] = useState<boolean>(false)
-  const description = useMemo(() => project.description.slice(0, 50) + (project.description.length && project.description.length > 50 ? '...' : ''), [project])
-  const urlOriginal = useMemo(() => getUrlImageByTemplate(project.images[0], 'original'), [project])
-  const urlMiddle = useMemo(() => getUrlImageByTemplate(project.images[0], 'mid'), [project])
+  const description = useMemo(() =>
+    project.description?.slice(0, 50) + (project.description?.length && project.description.length > 50 ? '...' : ''), [project])
+  const urlOriginal = useMemo(() => getUrlImageByTemplate(project.images && project.images[0], 'original'), [project])
+  const urlMiddle = useMemo(() => getUrlImageByTemplate(project.images && project.images[0], 'mid'), [project])
 
   const handleClickDelete = useCallback(() => {
     const handleOk = () => {
       setIsDeleted(true)
-      onDelete(project.id)
+      if (project.id) onDelete(project.id)
     }
     Modal.confirm({ title: 'Are you sure you want to delete?', onOk: handleOk })
   }, [onDelete, project])
 
   const handleClickUpdate = useCallback(() => {
-    onUpdate(project.id)
+    if (project.id) onUpdate(project.id)
   }, [onUpdate, project])
 
   if (isDeleted) return <Empty className='project-card_empty' image={Empty.PRESENTED_IMAGE_SIMPLE} description={false} />
