@@ -7,6 +7,7 @@ import { alertActions } from '../../../../store/slices/alert'
 import { Language } from '../../../../types/common'
 import { TimeStampView } from '../../../../api/types/time-stamp.types'
 import { timeStampsAction } from '../../../../store/slices/time-stamps'
+import { ADMIN, pathJoin, TIME_STAMPS } from '../../../../constants/routes'
 
 type UseTimeStampsManager = (language?: Language) => {
   onUpdate: (id: string) => void
@@ -59,11 +60,11 @@ const useTimeStampsManager: UseTimeStampsManager = (language = Language.EN) => {
   }, [dispatch, language])
 
   const onAddNew = useCallback(() => {
-    navigate('/admin/time-stamps/new')
+    navigate(pathJoin(ADMIN, TIME_STAMPS, 'new'))
   }, [navigate])
 
   const onUpdate = useCallback((id: string) => {
-    navigate(`/admin/time-stamps/${id}`)
+    navigate(pathJoin(ADMIN, TIME_STAMPS, id))
   }, [navigate])
 
   return {

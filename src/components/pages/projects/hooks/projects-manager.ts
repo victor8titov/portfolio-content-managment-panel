@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { QueryParameters } from '../../../../api/types/common'
 import { ProjectView } from '../../../../api/types/projects'
+import { ADMIN, pathJoin, PROJECTS } from '../../../../constants/routes'
 
 import { AppDispatch, State } from '../../../../store'
 import { alertActions } from '../../../../store/slices/alert'
@@ -48,7 +49,7 @@ const useProjectsManager: UseProjectsManager = (language = Language.EN) => {
   }, [dispatch, getProjects, language])
 
   const onUpdate = useCallback((id: string) => {
-    navigate(`/admin/projects/${id}`)
+    navigate(pathJoin(ADMIN, PROJECTS, id))
   }, [navigate])
 
   const onDelete = useCallback(async (id: string) => {
@@ -67,7 +68,7 @@ const useProjectsManager: UseProjectsManager = (language = Language.EN) => {
   }, [dispatch, language])
 
   const onAddNew = useCallback(() => {
-    navigate('/admin/projects/new')
+    navigate(pathJoin(ADMIN, PROJECTS, 'new'))
   }, [navigate])
 
   const onChangePage = useCallback((page: number, pageSize: number) => {

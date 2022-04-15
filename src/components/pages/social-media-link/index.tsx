@@ -7,6 +7,7 @@ import { RollbackOutlined } from '@ant-design/icons'
 import './styles.scss'
 import useFormManager from './hooks/form-manager'
 import SocialMediaLinkForm from './form'
+import { ADMIN, pathJoin, SOCIAL_MEDIA } from '../../../constants/routes'
 
 const { useBreakpoint } = Grid
 
@@ -19,7 +20,7 @@ const SocialMediaLink: FC = () => {
   const GoBack: FC = () => {
     return (
       <Button loading={isLoading}>
-        <Link to='/admin/social-media'>{isDesktop ? 'Go to Social Media ' : ''}  <RollbackOutlined /></Link>
+        <Link to={pathJoin(ADMIN, SOCIAL_MEDIA)}>{isDesktop ? 'Go to Social Media ' : ''}  <RollbackOutlined /></Link>
       </Button>
     )
   }

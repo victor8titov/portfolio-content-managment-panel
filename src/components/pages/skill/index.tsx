@@ -7,6 +7,7 @@ import { RollbackOutlined } from '@ant-design/icons'
 import SkillForm from './form'
 import useFormManager from './hooks/form-manager'
 import './styles.scss'
+import { ADMIN, pathJoin, SKILLS } from '../../../constants/routes'
 
 const { useBreakpoint } = Grid
 
@@ -19,7 +20,7 @@ const Skill: FC = () => {
   const GoBack: FC = () => {
     return (
       <Button loading={isLoading}>
-        <Link to='/admin/skills'>{isDesktop ? 'Go to Skills ' : ''} <RollbackOutlined /></Link>
+        <Link to={pathJoin(ADMIN, SKILLS)}>{isDesktop ? 'Go to Skills ' : ''} <RollbackOutlined /></Link>
       </Button>
     )
   }

@@ -1,6 +1,7 @@
 import React, { FC, ReactElement, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Outlet, useNavigate } from 'react-router-dom'
+import { ADMIN, LOGIN, pathJoin } from '../../constants/routes'
 import { State } from '../../store'
 import { profileActions } from '../../store/slices/profile'
 
@@ -16,7 +17,7 @@ const Authentication: FC = (): ReactElement | null => {
     if (isLoggedIn) return
 
     if (authenticationCheckStatus === 'failure') {
-      navigate('/admin/login')
+      navigate(pathJoin(ADMIN, LOGIN))
       return
     }
 

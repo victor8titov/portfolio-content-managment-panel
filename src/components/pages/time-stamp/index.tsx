@@ -7,6 +7,7 @@ import { RollbackOutlined } from '@ant-design/icons'
 import useFormManager from './hooks/form-manager'
 import TimeStampForm from './form'
 import './styles.scss'
+import { ADMIN, pathJoin, TIME_STAMPS } from '../../../constants/routes'
 
 const { useBreakpoint } = Grid
 
@@ -19,7 +20,7 @@ const TimeStamp: FC = () => {
   const GoBack: FC = () => {
     return (
       <Button loading={isLoading}>
-        <Link to='/admin/time-stamps'>{isDesktop ? 'Go to Time Stamps ' : ''} <RollbackOutlined /></Link>
+        <Link to={pathJoin(ADMIN, TIME_STAMPS)}>{isDesktop ? 'Go to Time Stamps ' : ''} <RollbackOutlined /></Link>
       </Button>
     )
   }

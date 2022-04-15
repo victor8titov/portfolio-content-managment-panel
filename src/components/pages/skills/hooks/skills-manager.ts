@@ -7,6 +7,7 @@ import { alertActions } from '../../../../store/slices/alert'
 import { SkillView } from '../../../../api/types/skills.types'
 import { skillsAction } from '../../../../store/slices/skills'
 import { Language } from '../../../../types/common'
+import { ADMIN, pathJoin, SKILLS } from '../../../../constants/routes'
 
 type UseSkillsManager = (language?: Language) => {
   onUpdate: (id: string) => void
@@ -46,7 +47,7 @@ const useSkillsManager: UseSkillsManager = (language = Language.EN) => {
   }, [dispatch, getSkills, language])
 
   const onUpdate = useCallback((id: string) => {
-    navigate(`/admin/skills/${id}`)
+    navigate(pathJoin(ADMIN, SKILLS, id))
   }, [navigate])
 
   const onDelete = useCallback(async (id: string) => {
@@ -65,7 +66,7 @@ const useSkillsManager: UseSkillsManager = (language = Language.EN) => {
   }, [dispatch, language])
 
   const onAddNew = useCallback(() => {
-    navigate('/admin/skills/new')
+    navigate(pathJoin(ADMIN, SKILLS, 'new'))
   }, [navigate])
 
   return {

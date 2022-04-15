@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { SocialMediaView } from '../../../../api/types/social-media.types'
+import { ADMIN, pathJoin, SOCIAL_MEDIA } from '../../../../constants/routes'
 
 import { AppDispatch, State } from '../../../../store'
 import { alertActions } from '../../../../store/slices/alert'
@@ -43,7 +44,7 @@ const useSocialMediaManager: UseSocialMediaManager = () => {
   }, [dispatch, getSocialMediaList])
 
   const onUpdate = useCallback((id: string) => {
-    navigate(`/admin/social-media/${id}`)
+    navigate(pathJoin(ADMIN, SOCIAL_MEDIA, id))
   }, [navigate])
 
   const onDelete = useCallback(async (id: string) => {
@@ -62,7 +63,7 @@ const useSocialMediaManager: UseSocialMediaManager = () => {
   }, [dispatch])
 
   const onAddNew = useCallback(() => {
-    navigate('/admin/social-media/new')
+    navigate(pathJoin(ADMIN, SOCIAL_MEDIA, 'new'))
   }, [navigate])
 
   return {

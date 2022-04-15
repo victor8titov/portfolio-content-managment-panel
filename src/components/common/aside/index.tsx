@@ -3,6 +3,7 @@ import { Menu, Layout, Grid } from 'antd'
 
 import './styles.scss'
 import { NavLink } from 'react-router-dom'
+import { ADMIN, GALLERY, HOMEPAGE, pathJoin, PROJECTS, SKILLS, SOCIAL_MEDIA, TIME_STAMPS } from '../../../constants/routes'
 
 const { Sider } = Layout
 const { useBreakpoint } = Grid
@@ -57,37 +58,37 @@ const Aside: FC<Props> = ({ onCollapsed, isCollapsed }) => {
         selectedKeys={[key]}
         onSelect={handleClickMenu}>
         <Menu.Item key="homepage">
-          <Link to="/admin/homepage" onActive={() => setKey('homepage')}>
+          <Link to={pathJoin(ADMIN, HOMEPAGE)} onActive={() => setKey('homepage')}>
             Home Page
           </Link>
         </Menu.Item>
 
         <Menu.Item key="projects">
-          <Link to="/admin/projects" onActive={() => setKey('projects')}>
+          <Link to={pathJoin(ADMIN, PROJECTS)} onActive={() => setKey('projects')}>
             Projects
           </Link>
         </Menu.Item>
 
         <Menu.Item key="skills">
-          <Link to="/admin/skills" onActive={() => setKey('skills')}>
+          <Link to={pathJoin(ADMIN, SKILLS)} onActive={() => setKey('skills')}>
             Skills
           </Link>
         </Menu.Item>
 
         <Menu.Item key="time-stamps">
-          <Link to="/admin/time-stamps" onActive={() => setKey('time-stamps')}>
+          <Link to={pathJoin(ADMIN, TIME_STAMPS)} onActive={() => setKey('time-stamps')}>
             Time Stamp
           </Link>
         </Menu.Item>
 
         <Menu.Item key="social-media">
-          <Link to="/admin/social-media" onActive={() => setKey('social-media')}>
+          <Link to={pathJoin(ADMIN, SOCIAL_MEDIA)} onActive={() => setKey('social-media')}>
             Social Media Links
           </Link>
         </Menu.Item>
 
         <Menu.Item key="gallery">
-          <Link to="/admin/gallery" onActive={() => setKey('gallery')}>
+          <Link to={pathJoin(ADMIN, GALLERY)} onActive={() => setKey('gallery')}>
             Gallery
           </Link>
         </Menu.Item>

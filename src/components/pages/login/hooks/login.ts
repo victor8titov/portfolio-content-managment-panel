@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { ADMIN, HOMEPAGE, pathJoin } from '../../../../constants/routes'
 import { AppDispatch, State } from '../../../../store'
 import { profileActions } from '../../../../store/slices/profile'
 
@@ -24,7 +25,7 @@ const useLogin: UseLogin = () => {
   }, [dispatch, isLoggedIn, authenticationCheckStatus])
 
   useEffect(() => {
-    if (isLoggedIn) navigate('/admin/homepage')
+    if (isLoggedIn) navigate(pathJoin(ADMIN, HOMEPAGE))
   }, [isLoggedIn, navigate])
 
   const onLogin = useCallback(async (fields) => {

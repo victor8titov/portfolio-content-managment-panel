@@ -12,6 +12,6 @@ export const SOCIAL_MEDIA = 'social-media'
 export const SOCIAL_MEDIA_LINK = 'social-media/:socialMediaId'
 export const GALLERY = 'gallery'
 
-export function pathJoin (...arg: string[]): string {
-  return '/' + arg.reduce((previousValue: string, currentValue: string) => previousValue + '/' + currentValue)
+export function pathJoin (...arg: (string | number)[]): string {
+  return '/' + arg.reduce((previousValue: string | number, currentValue: string | number) => previousValue + '/' + currentValue)
 }

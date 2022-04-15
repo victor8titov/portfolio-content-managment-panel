@@ -8,6 +8,7 @@ import useFormManager from './hooks/form-manager'
 import ProjectForm from './form'
 import ProjectFormImage from './form-image'
 import './styles.scss'
+import { ADMIN, pathJoin, PROJECTS } from '../../../constants/routes'
 
 const { useBreakpoint } = Grid
 
@@ -20,7 +21,7 @@ const Project: FC = () => {
   const GoBack: FC = () => {
     return (
       <Button loading={isLoading}>
-        <Link to='/admin/projects'>{isDesktop ? 'Go to Projects ' : ''}<RollbackOutlined /></Link>
+        <Link to={pathJoin(ADMIN, PROJECTS)}>{isDesktop ? 'Go to Projects ' : ''}<RollbackOutlined /></Link>
       </Button>
     )
   }

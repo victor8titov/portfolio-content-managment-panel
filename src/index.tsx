@@ -51,7 +51,7 @@ ReactDOM.render(
               </Route>
             </Route>
 
-            <Route path={routes.LOGIN} element={<Login />} />
+            <Route path={routes.pathJoin(routes.ADMIN, routes.LOGIN)} element={<Login />} />
             <Route path='*' element={<Error404 />} />
           </Routes>
       </BrowserRouter>
