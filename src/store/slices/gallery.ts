@@ -3,36 +3,31 @@ import { ImageView } from '../../api/types/image.types'
 import * as restApi from '../../api'
 import { Pagination } from '../../types/common'
 import { errorSerialization } from '../utils'
+import { ActionAddMatcher } from './alert'
 
 export type GalleryState = {
   images: ImageView[] | []
   pagination: Pagination | null
   image: ImageView | null
+  isLoading: boolean
+  isRotten: boolean
 }
 
 const initState: GalleryState = {
   image: null,
   images: [],
-  pagination: null
+  pagination: null,
+  isLoading: false,
+  isRotten: true
 }
 
 const fetchImages = createAsyncThunk(
   'fetchImages',
   async (payload: { page?: number, pageSize?: number } | undefined, { rejectWithValue }) => {
     try {
-      const response = await restApi.image.getList(payload || {})
-      return response.data
-    } catch (e) {
-      return rejectWithValue(errorSerialization(e))
-    }
-  }
-)
-
-const fetchImage = createAsyncThunk(
-  'fetchImage',
-  async (id: string | number, { rejectWithValue }) => {
-    try {
-      const response = await restApi.image.get(id)
+      const page = payload?.page || 1
+      const pageSize = payload?.pageSize || 10
+      const response = await restApi.image.getList({ page, pageSize })
       return response.data
     } catch (e) {
       return rejectWithValue(errorSerialization(e))
@@ -55,22 +50,32 @@ const deleteImage = createAsyncThunk(
 const gallerySlice = createSlice({
   name: 'gallery',
   initialState: initState,
-  reducers: {
-    clear (state) {
-      state.image = initState.image
-      state.images = initState.images
-      state.pagination = initState.pagination
-    }
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchImages.fulfilled, (state, { payload }) => {
         state.images = payload.items || []
         state.pagination = payload.pagination || null
+        state.isRotten = false
       })
-      .addCase(fetchImage.fulfilled, (state, { payload }) => {
-        state.image = payload
+      .addCase(fetchImages.rejected, (state) => {
+        state.isRotten = false
       })
+      .addCase(deleteImage.fulfilled, (state) => {
+        state.isRotten = true
+      })
+      .addMatcher(
+        (action): action is ActionAddMatcher => /Image.+\/(rejected|fulfilled)/.test(action.type),
+        (state) => {
+          state.isLoading = false
+        }
+      )
+      .addMatcher(
+        (action): action is ActionAddMatcher => /Image.+\/pending/.test(action.type),
+        (state) => {
+          state.isLoading = true
+        }
+      )
   }
 })
 
@@ -79,6 +84,5 @@ export default gallerySlice.reducer
 export const galleryActions = {
   ...gallerySlice.actions,
   fetchImages,
-  fetchImage,
   deleteImage
 }

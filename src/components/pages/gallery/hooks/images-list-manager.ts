@@ -1,59 +1,44 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ImageView } from '../../../../api/types/image.types'
 import { AppDispatch, State } from '../../../../store'
-import { alertActions } from '../../../../store/slices/alert'
 import { galleryActions } from '../../../../store/slices/gallery'
 import { Pagination } from '../../../../types/common'
 
 type UseImageListManager = () => {
   listImages: ImageView[]
   pagination: Pagination
-  pullList: () => void
-  isLoadingImages: boolean
-  onChangePage: (page: number, pageSize: number) => void
+  getListImages: (page?: number, pageSize?: number) => void
+  isLoading: boolean
 }
 
 const useImageListManager: UseImageListManager = () => {
   const dispatch: AppDispatch = useDispatch()
 
-  const [isLoadingImages, setIsLoadingImages] = useState<boolean>(false)
-
+  const isLoading = useSelector((state: State) => state.gallery.isLoading)
   const listImages = useSelector((state: State) => state.gallery.images)
   const pagination = useSelector((state: State) => state.gallery.pagination)
+  const isRotten = useSelector((state: State) => state.gallery.isRotten)
 
-  const pullList = useCallback(async (page = 1, pageSize = 10) => {
-    try {
-      setIsLoadingImages(true)
-      await dispatch(galleryActions.fetchImages({ page, pageSize }))
-    } catch (e: any) {
-      if (e.message) dispatch(alertActions.pushMessage({ message: e.message, severity: 'error' }))
-    } finally {
-      setIsLoadingImages(false)
-    }
+  const getListImages = useCallback((page?: number, pageSize?: number) => {
+    dispatch(galleryActions.fetchImages({ page, pageSize }))
   }, [dispatch])
 
   useEffect(() => {
-    pullList()
-    return () => {
-      dispatch(galleryActions.clear())
+    if (isRotten && !isLoading) {
+      dispatch(galleryActions.fetchImages())
     }
-  }, [pullList, dispatch])
-
-  const onChangePage = useCallback((page: number, pageSize: number) => {
-    pullList(page, pageSize)
-  }, [pullList])
+  }, [dispatch, isRotten, isLoading])
 
   return {
-    isLoadingImages,
+    isLoading,
     listImages,
     pagination: {
       page: pagination?.page || 1,
       pageSize: pagination?.pageSize || 10,
       totalPages: pagination?.totalPages || 0
     },
-    pullList,
-    onChangePage
+    getListImages
   }
 }
 

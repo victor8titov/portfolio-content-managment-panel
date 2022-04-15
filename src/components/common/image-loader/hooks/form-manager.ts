@@ -34,7 +34,7 @@ const useFormManager: UseFormManager = (callbackAfterSuccessfulSaving) => {
       formData.append('file', file.originFileObj)
 
       setIsUploading(true)
-      await dispatch(uploadAction.uploadImage(formData))
+      await dispatch(uploadAction.uploadImage(formData)).unwrap()
 
       form.resetFields()
       dispatch(alertActions.pushMessage({ message: 'Media file successfully added', severity: 'success' }))

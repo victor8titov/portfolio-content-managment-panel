@@ -17,27 +17,48 @@ type Props = {
 
 const Gallery: FC<Props> = (props) => {
   const { type } = props
-  const { isLoadingImages, listImages, pullList, pagination, onChangePage } = useImageListManager()
+  const { isLoading, listImages, pagination, getListImages } = useImageListManager()
   const { onDelete } = useImageManager()
   const { onSelect, checkSelectedByImage } = useManagerOfListOfSelected(props.onSelect, type)
+  const { page, pageSize, totalPages } = pagination
+  const typeImageCard = useMemo(() => type === 'select-one' || type === 'multiselect' ? 'select' : 'default', [type])
 
   const onDeleteImage = useCallback(async (image: ImageView) => {
-    await onDelete(image)
-    await pullList()
-  }, [onDelete, pullList])
-  const { page, pageSize, totalPages } = pagination
+    try {
+      await onDelete(image)
+    } finally {
+      if (listImages.length === 1) {
+        if (page - 1 > 0) {
+          getListImages(page - 1, pageSize)
+        } else {
+          getListImages()
+        }
+      } else {
+        getListImages(page, pageSize)
+      }
+    }
+  }, [onDelete, getListImages, page, pageSize, listImages])
 
-  const typeImageCard = useMemo(() => type === 'select-one' || type === 'multiselect' ? 'select' : 'default', [type])
+  const handleLoadedImage = useCallback(() => {
+    getListImages(page, pageSize)
+  }, [page, pageSize, getListImages])
 
   return (
     <div className='gallery-page'>
       <Title>Media files Gallery</Title>
-      <Spin spinning={isLoadingImages}>
+      <Spin spinning={isLoading}>
         <div className='gallery-page__body'>
           <Space align='center' wrap>
-              <ImageLoader onLoaded={pullList}/>
+              <ImageLoader onLoaded={handleLoadedImage}/>
               {listImages.map((image) =>
-                <ImageCard image={image} key={image.id} onDelete={onDeleteImage} onSelect={onSelect} type={typeImageCard} selected={checkSelectedByImage(image)} />
+                <ImageCard
+                  image={image}
+                  key={image.id}
+                  onDelete={onDeleteImage}
+                  onSelect={onSelect}
+                  type={typeImageCard}
+                  selected={checkSelectedByImage(image)}
+                />
               )}
           </Space>
           <div className='gallery-page__pagination'>
@@ -45,7 +66,7 @@ const Gallery: FC<Props> = (props) => {
               current={page}
               pageSize={pageSize}
               total={totalPages * pageSize}
-              onChange={onChangePage}
+              onChange={getListImages}
               showSizeChanger
               hideOnSinglePage
               pageSizeOptions={[10, 20, 50]}

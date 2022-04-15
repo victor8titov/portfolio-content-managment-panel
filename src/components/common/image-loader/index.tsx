@@ -5,21 +5,20 @@ import { UploadOutlined, PlusOutlined } from '@ant-design/icons'
 import { UploadFile } from 'antd/lib/upload/interface'
 
 import useFormManager from './hooks/form-manager'
-import { ImageView } from '../../../api/types/image.types'
 import './styles.scss'
 
 type Props = {
-  onLoaded?: (image: ImageView) => void;
+  onLoaded?: () => void;
 };
 
 const ImageLoader: FC<Props> = ({ onLoaded }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [fileList, setFileList] = useState<UploadFile[]>([])
 
-  const callbackAfterSuccessfulSaving = useCallback((image: ImageView) => {
+  const callbackAfterSuccessfulSaving = useCallback(() => {
     setIsOpen(false)
     setFileList([])
-    if (onLoaded) onLoaded(image)
+    if (onLoaded) onLoaded()
   }, [onLoaded])
 
   const { form, onSave, isUploading } = useFormManager(callbackAfterSuccessfulSaving)
