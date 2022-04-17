@@ -1,5 +1,3 @@
-// Generated using webpack-cli https://github.com/webpack/webpack-cli
-
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -78,8 +76,6 @@ const config = {
       extensions: ['js', 'jsx', 'ts', 'tsx']
     }),
 
-    // new webpack.HotModuleReplacementPlugin(),
-
     // Moment.js is an extremely popular library that bundles large locale files
     // by default due to how webpack interprets its code. This is a practical
     // solution that requires the user to opt into importing specific locales.
@@ -155,25 +151,6 @@ const config = {
         exclude: /node_modules/,
         type: 'asset/inline'
       },
-      // @svgr dont work with webpack 5 I didn't find how to solve this problem.
-      // {
-      //   test: /\.svg$/,
-      //   use: [
-      //     {
-      //       loader: require.resolve('@svgr/webpack'),
-      //       options: {
-      //         prettier: false,
-      //         svgo: false,
-      //         svgoConfig: {
-      //           plugins: [{ removeViewBox: false }]
-      //         },
-      //         titleProp: true,
-      //         ref: true
-      //       }
-      //     }
-      //   ],
-      //   issuer: /\.[jt]sx?$/
-      // },
       {
         test: /\.(eot|ttf|woff|woff2|png|jpg|gif)$/i,
         type: 'asset'
