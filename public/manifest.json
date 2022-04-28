@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "content-management-panel",
+  "name": "Portfolio content management panel",
   "icons": [
     {
       "src": "favicon.ico",

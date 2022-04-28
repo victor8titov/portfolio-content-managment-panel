@@ -44,6 +44,7 @@ const useFormManager: UseFormManager = () => {
         await dispatch(skillsAction.createSkill(payload)).unwrap()
         await dispatch(alertActions.pushMessage({ message: 'Skill entity successfully created!', severity: 'success' }))
         form.resetFields()
+        await dispatch(skillsAction.fetchSkills(Language.EN))
       }
 
       if (mode === 'update' && skillId) {
