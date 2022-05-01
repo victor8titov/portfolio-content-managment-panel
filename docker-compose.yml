@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+
+  portfolio_content_managment_panel_nginx:
+    restart: always
+    image: portfolio_content_managment_panel_nginx_image
+    container_name: portfolio_content_managment_panel_nginx_container
+    env_file:
+      - .env
+    build:
+      context: ./
+    networks:
+      - portfolio_network
+    expose:
+      - "81"
+
+
+networks:
+  portfolio_network:
+    external: true

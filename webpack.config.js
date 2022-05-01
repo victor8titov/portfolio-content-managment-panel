@@ -23,7 +23,7 @@ const config = {
   mode: isProduction ? 'production' : 'development',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/',
+    publicPath: '/admin/',
     filename: isProduction
       ? 'static/js/[name].[contenthash:8].js'
       : 'static/js/bundle.js',
