@@ -1,5 +1,6 @@
 import React, { FC, useCallback, useMemo, useState } from 'react'
 import { Card, Empty, Modal } from 'antd'
+import { decode } from 'html-entities'
 import Text from 'antd/lib/typography/Text'
 import Title from 'antd/lib/typography/Title'
 import { DeleteOutlined, EditOutlined, StopOutlined } from '@ant-design/icons'
@@ -49,8 +50,8 @@ const TimeStampCard: FC<PropsCard> = (props) => {
         <Title level={5}>{timeStamp.name}</Title>
         <div className='time-stamp-card__description' onClick={handleClickDescription}>
           {isRolledUp
-            ? <Text>{description}</Text>
-            : <Text>{timeStamp.description}</Text>
+            ? <Text>{decode(description)}</Text>
+            : <Text>{decode(timeStamp.description)}</Text>
           }
         </div>
     </Card>

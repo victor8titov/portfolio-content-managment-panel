@@ -8,6 +8,7 @@ import { AppDispatch, State } from '../../../../store'
 import { alertActions } from '../../../../store/slices/alert'
 import { skillsAction } from '../../../../store/slices/skills'
 import { Language } from '../../../../types/common'
+import { decodeStringInObjectWithLanguage } from '../../../../utils/decode-string'
 
 type UseFormManager = () => {
   form: FormInstance
@@ -93,7 +94,7 @@ const useFormManager: UseFormManager = () => {
         },
         {
           name: 'description',
-          value: skill.description
+          value: decodeStringInObjectWithLanguage(skill.description)
         }
       ])
     }

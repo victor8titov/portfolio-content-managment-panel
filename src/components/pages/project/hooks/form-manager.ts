@@ -10,6 +10,7 @@ import { alertActions } from '../../../../store/slices/alert'
 import { ProjectCreation } from '../../../../api/types/projects'
 import { projectsAction } from '../../../../store/slices/projects'
 import { ImageView } from '../../../../api/types/image.types'
+import { decodeStringInObjectWithLanguage } from '../../../../utils/decode-string'
 
 type UseFormManager = () => {
   form: FormInstance
@@ -107,7 +108,7 @@ const useFormManager: UseFormManager = () => {
         },
         {
           name: 'description',
-          value: project.description || null
+          value: decodeStringInObjectWithLanguage(project.description)
         }
       ])
     }

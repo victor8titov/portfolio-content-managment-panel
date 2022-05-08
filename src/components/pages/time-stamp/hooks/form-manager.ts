@@ -9,6 +9,7 @@ import { AppDispatch, State } from '../../../../store'
 import { alertActions } from '../../../../store/slices/alert'
 import { timeStampsAction } from '../../../../store/slices/time-stamps'
 import { TimeStampCreation } from '../../../../api/types/time-stamp.types'
+import { decodeStringInObjectWithLanguage } from '../../../../utils/decode-string'
 
 type UseFormManager = () => {
   form: FormInstance
@@ -104,7 +105,7 @@ const useFormManager: UseFormManager = () => {
         },
         {
           name: 'description',
-          value: timeStamp.description
+          value: decodeStringInObjectWithLanguage(timeStamp.description)
         }
       ])
     }

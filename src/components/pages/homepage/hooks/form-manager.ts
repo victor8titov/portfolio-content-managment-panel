@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { FormInstance } from 'antd'
+
 import { useForm } from 'antd/lib/form/Form'
 
 import { homePageActions } from '../../../../store/slices/homepage'
 import { AppDispatch, State } from '../../../../store'
 import { alertActions } from '../../../../store/slices/alert'
 import { ImageView } from '../../../../api/types/image.types'
+import { decodeStringInObjectWithLanguage } from '../../../../utils/decode-string'
 
 type UseFormManager = () => {
   form: FormInstance
@@ -54,15 +56,15 @@ const useFormManager: UseFormManager = () => {
       form.setFields([
         {
           name: 'title',
-          value: state.title
+          value: decodeStringInObjectWithLanguage(state.title)
         },
         {
           name: 'subtitle',
-          value: state.subtitle
+          value: decodeStringInObjectWithLanguage(state.subtitle)
         },
         {
           name: 'description',
-          value: state.description
+          value: decodeStringInObjectWithLanguage(state.description)
         },
         {
           name: 'avatars',

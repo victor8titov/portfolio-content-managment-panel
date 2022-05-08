@@ -2,6 +2,7 @@ import React, { FC, useCallback, useMemo, useState } from 'react'
 import { Card, Empty, Image, Modal } from 'antd'
 import Text from 'antd/lib/typography/Text'
 import Title from 'antd/lib/typography/Title'
+import { decode } from 'html-entities'
 import { DeleteOutlined, EditOutlined, StopOutlined } from '@ant-design/icons'
 import { ProjectView } from '../../../api/types/projects'
 import { getUrlImageByTemplate } from '../../../utils/get-url-image'
@@ -52,7 +53,7 @@ const ProjectCard: FC<PropsCard> = (props) => {
           fallback={FALLBACK}
             />
         <div className='project-card__description'>
-          <Text>{description}</Text>
+          <Text>{decode(description)}</Text>
         </div>
     </Card>
   )
