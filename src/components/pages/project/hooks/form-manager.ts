@@ -57,8 +57,8 @@ const useFormManager: UseFormManager = () => {
       events
     }
     if (mode === 'new') {
-      await dispatch(projectsAction.createProject(payload)).unwrap
-      await dispatch(alertActions.pushMessage({ message: 'Skill entity successfully created!', severity: 'success' }))
+      await dispatch(projectsAction.createProject(payload)).unwrap()
+      await dispatch(alertActions.pushMessage({ message: 'Project entity successfully created!', severity: 'success' }))
       form.resetFields()
     }
 

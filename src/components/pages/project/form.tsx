@@ -63,8 +63,15 @@ const ProjectForm: FC<Props> = (props) => {
 
       <Title level={4}>Events</Title>
       <Divider />
-      <Form.List name="events">
-        {(fields, { add, remove }) => (
+      <Form.List 
+        name="events"
+        rules={
+          [
+            {
+              validator: (rule, value) => { return value.length > 0 ? Promise.resolve() : Promise.reject(new Error('Add at least the creation date')) }
+            }
+          ]}>
+        {(fields, { add, remove }, { errors }) => (
           <div className="project-form__events-box">
               <Button
                 className="project-form__event-add-button"
@@ -74,15 +81,16 @@ const ProjectForm: FC<Props> = (props) => {
                 icon={<PlusOutlined />}>
                 Add Event
               </Button>
+              <Form.ErrorList errors={errors} />
             {fields.map(({ key, name, ...restField }) => (
               <Space
                 key={key}
                 align='baseline'
                 >
-                <Form.Item name={[name, 'status']} {...restField}>
+                <Form.Item name={[name, 'status']} {...restField} rules={[{ required: true, message: 'Name is required' }]}>
                   <Input />
                 </Form.Item>
-                <Form.Item name={[name, 'date']} {...restField}>
+                <Form.Item name={[name, 'date']} {...restField} rules={[{ required: true, message: 'Date is required' }]}>
                   <DatePicker format={monthFormat} picker="month" />
                 </Form.Item>
                 <MinusCircleOutlined onClick={() => remove(name)} />
