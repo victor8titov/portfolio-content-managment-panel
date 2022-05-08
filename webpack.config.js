@@ -1,8 +1,8 @@
+const webpack = require('webpack')
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
-const webpack = require('webpack')
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const ESLintPlugin = require('eslint-webpack-plugin')
@@ -23,7 +23,7 @@ const config = {
   mode: isProduction ? 'production' : 'development',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/admin/',
+    publicPath: isProduction ? '/admin/' : '/',
     filename: isProduction
       ? 'static/js/[name].[contenthash:8].js'
       : 'static/js/bundle.js',
@@ -53,6 +53,10 @@ const config = {
       inject: true
     }),
 
+    new InterpolateHtmlPlugin(HtmlWebpackPlugin, {
+      PUBLIC_URL: process.env.PUBLIC_URL + (isProduction ? '/admin' : '')
+    }),
+
     new StylelintPlugin({
       files: 'src/*.s?(a|c)ss'
     }
@@ -66,10 +70,6 @@ const config = {
     new webpack.DefinePlugin({
       NODE_ENV: JSON.stringify(isProduction ? 'production' : 'development'),
       REST_API_URL: JSON.stringify(process.env.REST_API_URL)
-    }),
-
-    new InterpolateHtmlPlugin(HtmlWebpackPlugin, {
-      PUBLIC_URL: process.env.PUBLIC_URL
     }),
 
     new ESLintPlugin({
