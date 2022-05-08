@@ -108,6 +108,7 @@ const useFormManager: UseFormManager = () => {
           value: decodeStringInObjectWithLanguage(timeStamp.description)
         }
       ])
+      form.validateFields()
     }
   }, [timeStamp, form])
 

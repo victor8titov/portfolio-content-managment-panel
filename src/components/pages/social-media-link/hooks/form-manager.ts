@@ -89,6 +89,7 @@ const useFormManager: UseFormManager = () => {
           value: link.icon ? [link.icon] : null
         }
       ])
+      form.validateFields()
     }
   }, [socialMedia, form, socialMediaId])
 

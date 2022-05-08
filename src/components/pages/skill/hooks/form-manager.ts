@@ -97,6 +97,7 @@ const useFormManager: UseFormManager = () => {
           value: decodeStringInObjectWithLanguage(skill.description)
         }
       ])
+      form.validateFields()
     }
   }, [skill, form])
 

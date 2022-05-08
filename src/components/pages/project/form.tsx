@@ -12,7 +12,7 @@ const ProjectForm: FC<Props> = (props) => {
   const { form } = props
   const message = 'There can be no more than 2000 characters'
   const monthFormat = 'YYYY/MM'
-
+  console.log('reneder ProjectForm');
   return (
     <Form
       form={form}

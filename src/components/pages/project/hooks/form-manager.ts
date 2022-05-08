@@ -27,7 +27,7 @@ const useFormManager: UseFormManager = () => {
   const mode: 'new' | 'update' = useMemo(() => projectId === 'new' ? 'new' : 'update', [projectId])
   const isLoading = useSelector((state: State) => state.projects.isLoading)
   const project = useSelector((state: State) => state.projects.project)
-
+  console.log('--------------', project);
   const onSave = async () => {
     await form.validateFields()
 
@@ -111,6 +111,7 @@ const useFormManager: UseFormManager = () => {
           value: decodeStringInObjectWithLanguage(project.description)
         }
       ])
+      form.validateFields()
     }
   }, [project, form])
 

@@ -71,6 +71,7 @@ const useFormManager: UseFormManager = () => {
           value: state.avatars?.map(i => i.image)
         }
       ])
+      form.validateFields()
     }
   }, [state, form])
 
